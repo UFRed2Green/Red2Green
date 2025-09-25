@@ -46,7 +46,14 @@ Tip: If you prefer, most of these steps (adding, committing, and pushing) can be
 To create the pull request for your changes (for someone to review them) go to the "Pull Requests" tab on github, assign a reviewer, and create it.
 Upon review, you can merge the pull request into the main branch.
 
-## Getting Started With NextJS
+### Project Structure
+```
+Red2Green/
+├── client/      # Frontend (Next.js + React)
+└── server/      # Backend (Node.js + Express)
+```
+
+## Getting Started
 
 First, run the development server: 
 
@@ -56,11 +63,16 @@ npm run dev
 
 If you don't have npm already install node.js: https://nodejs.org/en/download
 
+### Frontend / Client
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+### Backend / Server
+Open [http://localhost:5000](http://localhost:5000) with your browser.
+
 
 ## Learn More
 
@@ -68,6 +80,8 @@ To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Node.js Documentation](https://nodejs.org/docs/latest/api/)
+- [Express.js Documentation](https://expressjs.com/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js)
 
