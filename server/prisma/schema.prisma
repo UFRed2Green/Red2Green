@@ -1,0 +1,26 @@
+/**
+ * Prisma schema docs: https://pris.ly/d/prisma-schema
+ * Prisma acts as an ORM (Object-Relational Mapper), allowing the backend
+ * to interact with the PostgreSQL database using an auto-generated,
+ * type-safe client instead of writing raw SQL queries.
+ */
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  first_name String
+  last_name  String
+  email      String   @unique
+  password   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
