@@ -42,7 +42,7 @@ git push origin <branch-name>
 
 Tip: If you prefer, most of these steps (adding, committing, and pushing) can be done more easily through the VS Code UI.
 
-<img src="image.png" width="150" />
+<img src="./docs/images/vscode-git.png" width="150" />
 
 ### 4. Create Pull Request
 To create the pull request for your changes (for someone to review them) go to the "Pull Requests" tab on GitHub, assign a reviewer, and create it.
@@ -63,7 +63,7 @@ Red2Green/
 ## Getting Started (Project)
 
 ### Step 0. Environment Setup
-Before running anything, create a copy of the file .env.example and call it .env in the root directory.
+Before running anything, create a copy of the file .env.example within the server directory and call it .env.
 ```bash
 cp .env.example .env
 ```
@@ -111,7 +111,7 @@ In the server/ directory, run the following commands to set up the backend envir
 These only need to be run during the initial setup or when the database schema changes.
 They ensure Prisma, Docker, and PostgreSQL all work together correctly.
 
-1. [Install Docker for desktop](https://www.docker.com/get-started/). This is used to run the local PostgreSQL database in a consistent containerized environment.
+1. [Install Docker for desktop](https://www.docker.com/get-started/) and open the app. This is used to run the local PostgreSQL database in a consistent containerized environment.
 
 2. Generate the Prisma client
     (creates the database client from schema.prisma)
@@ -134,7 +134,14 @@ They ensure Prisma, Docker, and PostgreSQL all work together correctly.
 
 5. Then, return to the project’s root directory and start the app with npm.
 
-Open [http://localhost:5000](http://localhost:5000) with your browser and open the docker desktop app to ensure that the server and database are running.
+Open [http://localhost:5000](http://localhost:5000) with your browser to ensure that the server is running.
+
+See the database
+
+```bash
+docker compose exec app npx prisma studio
+```
+<img src="./docs/images/database.png" />
 
 ## Learn More
 
