@@ -20,6 +20,19 @@ model User {
   lastName  String
   email      String   @unique
   password   String
+  trades    Trade[] 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+}
+
+model Trade {
+  trade_id   String   @id @default(uuid())
+  ticker     String
+  quantity   Int
+  price      Decimal   @db.Decimal(10, 2)
+  trade_date DateTime  @default(now())
+  user_id    Int
+  user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
 }
