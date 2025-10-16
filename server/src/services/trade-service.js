@@ -1,3 +1,5 @@
+import prisma from "../prisma-client.js";
+
 export async function addTrade({
     userId,
     ticker,
