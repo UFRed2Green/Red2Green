@@ -1,26 +1,78 @@
-import Link from "next/link";
+"use client";
+
+import '@/app/styles/register.css';
+import Link from 'next/link';
+import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
+import { AiOutlineStock } from "react-icons/ai";
+import { useState } from 'react';
 
 export default function RegisterPage() {
     return (
         <html><body>
-            <main className="flex flex-col items-center justify-center min-h-screen p-8">
-                <h1 className="text-3xl font-semibold">Register</h1>
-                <form className="flex flex-col gap-4 mt-6 w-80">
-                    <input type="text" placeholder="Name" className="border p-2 rounded" />
-                    <input type="email" placeholder="Email" className="border p-2 rounded" />
-                    <input type="password" placeholder="Password" className="border p-2 rounded" />
-                    <button type="submit" className="bg-green-600 text-white p-2 rounded">
-                        Sign Up
-                    </button>
-                </form>
-
-                <div className="mt-6 flex gap-4">
-                    <Link href="/login" className="text-blue-600 underline">
-                        Login
-                    </Link>
-                </div>
-
+            <main className='register-container'>
+                
+                <HeroSection />
+                <RegisterForm />
             </main>
         </body></html>
+    );
+}
+
+function HeroSection() {
+    return (
+        <div className='register-hero-section-container'>
+            <p className='welcome-text'>
+                The best way to track your profits.
+                <br />
+                Sign up for free.
+            </p>
+
+            <div className='stock-line'>
+                <AiOutlineStock size={400} className='stock-icon'/>
+            </div>
+            
+            <div className='red-to-green-container'>
+                <span className='red-text'>Red</span>
+                <span className='two-text'>2</span>
+                <span className='green-text'>Green</span>
+            </div>
+        </div>
+    );
+}
+
+function RegisterForm() {
+    const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+
+    return (
+        <div className='register-form-container'>
+            <h1 className='register-form-header'>Create an account</h1>
+            <form className='register-form'>
+                <input type='first-name' placeholder='First Name'/>
+                <input type='last-name' placeholder='Last Name'/>
+                <input type='email' placeholder='user@email.com'/>
+                <div className='password-container'>
+                    <input 
+                        type={showPassword ? 'text' : 'password'}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className='password-input'
+                        placeholder='Password'
+                    />
+
+                    {password.length > 0 && (
+                        <button
+                            type='button'
+                            className='hide-password-icon'
+                            onClick={() => setShowPassword(!showPassword)}    
+                        >
+                            {showPassword ? <RiEyeOffFill /> : <RiEyeFill />}
+                        </button>
+                    )}
+                </div>
+                <button className='sign-up-button' type="submit">Sign Up</button>
+            </form>
+            <button className='login-button'>Already have an account? Log in</button>
+        </div>
     );
 }

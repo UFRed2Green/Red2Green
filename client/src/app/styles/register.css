@@ -1,0 +1,156 @@
+@import 'tailwindcss';
+
+html {
+    color: #F2E8CF;
+    font-family: 'Inter', sans-serif;
+}
+
+.register-container {
+    background-color: #6A994E;
+    display: flex;
+    height: 100vh;
+}
+
+.register-form-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: #52796F;
+    align-items: center;
+}
+
+.register-form {
+    gap: 25px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 8vh;
+}
+
+.register-form input {
+    border: 2px solid #2F3E46;
+    background-color: #446461;
+    padding: 10px;
+    border-radius: 6px;
+    color: #CAD2C5;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.register-form input:focus {
+    border-color: #F2E8CF;
+    background-color: #446461;
+    box-shadow: 0 0 5px #F2E8CF;
+}
+
+.sign-up-button {
+    background-color: #84A98C;
+    padding: 16px 175px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    font-size: 1.25rem;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sign-up-button:hover {
+    background-color: #6A994E;
+    font-size: 1.25rem;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.login-button {
+    margin-top: 30px;
+    background-color: #84A98C;
+    padding: 16px 55px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    font-size: 1.25rem;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.login-button:hover {
+    background-color: #6A994E;
+    font-size: 1.25rem;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.register-form-header {
+    font-size: 3rem;
+    margin-top: 17vh;
+    font-weight: bold;
+    text-align: center;
+}
+ 
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input {
+    width: 100%;
+    padding-right: 2.5rem;
+}
+
+.hide-password-icon {
+    position: absolute;
+    right: 1rem;
+    color: #374151;
+    cursor: pointer;
+}
+
+.register-hero-section-container {
+    flex: 1;
+    background-color: #CAD2C5;
+}
+
+.welcome-text {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10vh;
+    margin-left: 6vw;
+    color: #2F3E46;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.red-to-green-container {
+    position: absolute;
+    bottom: 5vh;
+    left: 6vw;
+    display: flex;
+    align-items: center;
+    gap: 0.1px;
+    font-size: 4.5rem;
+    font-weight: bold;
+}
+
+.red-text {
+    color: #db4437;
+}
+
+.two-text {
+    color: #737373;
+}
+
+.green-text {
+    color: #0f9d58;
+}
+
+.stock-line {
+    position: absolute;
+    top: 50%;
+    left: 23%;
+    transform: translate(-50%, -50%);
+}
+
+.stock-icon {
+    color: #52796F;
+}
