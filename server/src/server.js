@@ -1,5 +1,6 @@
 import express from "express";
 import authRoutes from "./routes/auth-routes.js";
+import verifyToken from "./middleware/auth-middleware.js";
 import cors from "cors";
 
 const app = express();
@@ -12,7 +13,7 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 
 // Routes
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", verifyToken, authRoutes);
 app.get("/", (req, res) => {
     res.send("Server is running");
 });
