@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import { AiOutlineStock } from "react-icons/ai";
 import { useState } from 'react';
+import { register } from '@/lib/register';
 
 export default function RegisterPage() {
     return (
@@ -41,16 +42,29 @@ function HeroSection() {
 }
 
 function RegisterForm() {
-    const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    async function handleRegister(e: React.FormEvent) {
+        e.preventDefault();
+        try {
+            const data = await register(firstName, lastName, email, password);
+        } catch (err: any) {
+            console.error("Register failed:", err.message);
+        }
+    }
 
     return (
         <div className='register-form-container'>
             <h1 className='register-form-header'>Create an account</h1>
-            <form className='register-form'>
-                <input type='first-name' placeholder='First Name'/>
-                <input type='last-name' placeholder='Last Name'/>
-                <input type='email' placeholder='user@email.com'/>
+            <form className='register-form' onSubmit={handleRegister}>
+                <input type='first-name' placeholder='First Name' onChange={e => setFirstName(e.target.value)}/>
+                <input type='last-name' placeholder='Last Name' onChange={e => setLastName(e.target.value)}/>
+                <input type='email' placeholder='user@email.com' onChange={e => setEmail(e.target.value)}/>
                 <div className='password-container'>
                     <input 
                         type={showPassword ? 'text' : 'password'}
