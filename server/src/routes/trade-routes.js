@@ -1,8 +1,9 @@
 import express from "express";
-import { addTradeController } from "../controller/trade-controller.js";
+import { addTradeController, deleteTradeController } from "../controller/trade-controller.js";
 
 const router = express.Router();
 
 router.post("/", addTradeController);
+router.delete("/:tradeId", deleteTradeController);
 
 export default router;

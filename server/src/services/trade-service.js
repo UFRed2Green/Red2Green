@@ -21,3 +21,22 @@ export async function addTrade({
 
     return trade;
 }
+export async function deleteTrade({ tradeId, userId }) {
+    const trade = await prisma.trade.findUnique({
+        where: { tradeId },
+    });
+
+    if (!trade) {
+        throw new Error("Trade not found");
+    }
+
+    if (trade.userId !== userId) {
+        throw new Error("Unauthorized to delete this trade");
+    }
+
+    await prisma.trade.delete({
+        where: { tradeId },
+    });
+
+    return { message: "Trade deleted successfully" };
+}
