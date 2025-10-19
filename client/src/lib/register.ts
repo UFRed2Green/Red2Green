@@ -1,8 +1,8 @@
-export async function register(first_name: string, last_name: string, email: string, password: string) {
+export async function register(firstName: string, lastName: string, email: string, password: string) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json"},
-        body: JSON.stringify({ first_name, last_name, email, password }),
+        body: JSON.stringify({ firstName, lastName, email, password }),
     });
 
     if (!res.ok) {
