@@ -40,8 +40,8 @@ describe("POST /api/auth/register", () => {
     const res = await request(app)
       .post("/api/auth/register")
       .send({
-        first_name: "John",
-        last_name: "Doe",
+        firstName: "John",
+        lastName: "Doe",
         email: "test@example.com",
         password: "password123",
       });
@@ -62,8 +62,8 @@ describe("POST /api/auth/register", () => {
     const res = await request(app)
       .post("/api/auth/register")
       .send({
-        first_name: "Dup",
-        last_name: "User",
+        firstName: "Dup",
+        lastName: "User",
         email: "test@example.com",
         password: "password123",
       });
@@ -81,8 +81,8 @@ describe("POST /api/auth/register", () => {
     const res = await request(app)
       .post("/api/auth/register")
       .send({
-        first_name: "Error",
-        last_name: "Test",
+        firstName: "Error",
+        lastName: "Test",
         email: "err@example.com",
         password: "123",
       });
