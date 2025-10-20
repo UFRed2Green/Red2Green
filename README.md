@@ -79,6 +79,11 @@ Copy that value into your .env under:
 JWT_SECRET=<paste_generated_secret_here>
 ```
 
+Then within the client directory run the following to create the local environment variable
+```bash
+echo "NEXT_PUBLIC_API_URL=http://localhost:5000" > .env.local
+```
+
 ### Step 1. Install Dependencies and Start the App 
 Pull the latest changes from the repository.
 
@@ -88,9 +93,9 @@ git pull
 
 Install the latest dependencies in the client directory and also in the server directory.
 ```bash
-npm install
-cd server && npm install
-cd ../client && npm install
+npm install && npm install concurrently
+cd server && npm install && npm install cors
+cd ../client && npm install && npm install react-icons
 ```
 **Before proceeding**, follow the instructions in the [**Backend / Server**](#backend--server). Then, run the app with this command from the root directory. This will start the server and client concurrently.
 
