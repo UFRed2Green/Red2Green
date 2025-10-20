@@ -1,5 +1,7 @@
 import express from "express";
 import authRoutes from "./routes/auth-routes.js";
+import tradeRoutes from "./routes/trade-routes.js";
+import verifyToken from "./middleware/auth-middleware.js";
 import cors from "cors";
 
 const app = express();
@@ -13,6 +15,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/trades", verifyToken, tradeRoutes);
 app.get("/", (req, res) => {
     res.send("Server is running");
 });

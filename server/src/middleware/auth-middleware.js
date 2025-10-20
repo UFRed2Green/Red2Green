@@ -10,7 +10,7 @@ import jwt from "jsonwebtoken";
  * Unauthorized response is returned. The `next()` function passes
  * control to the next middleware or route (endpoint) handler.
  */
-function authMiddleware(req, res, next) {
+function verifyToken(req, res, next) {
     const token = req.headers.authorization;
 
     if (!token) {
@@ -26,4 +26,4 @@ function authMiddleware(req, res, next) {
     });
 }
 
-export default authMiddleware;
+export default verifyToken;

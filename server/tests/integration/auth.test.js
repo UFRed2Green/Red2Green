@@ -3,6 +3,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { jest } from "@jest/globals";
+import { createFakeUser } from "../fakes/fake-user.js";
 
 // Mock Prisma client to isolate Database layer
 const prisma = {
@@ -32,17 +33,17 @@ beforeEach(() => {
 });
 
 describe("POST /api/auth/register", () => {
-  it("should register a new user and return a token in success wrapper", async () => {
-    const fakeUser = { id: 1, email: "test@example.com" };
+  it("should register a new user and return a token", async () => {
+    const fakeUser = createFakeUser();
     prisma.user.findUnique.mockResolvedValue(null);
     prisma.user.create.mockResolvedValue(fakeUser);
 
     const res = await request(app)
       .post("/api/auth/register")
       .send({
-        firstName: "John",
-        lastName: "Doe",
-        email: "test@example.com",
+        firstName: fakeUser.firstName,
+        lastName: fakeUser.lastName,
+        email: fakeUser.email,
         password: "password123",
       });
 
@@ -57,14 +58,15 @@ describe("POST /api/auth/register", () => {
   });
 
   it("should return 409 if email already exists", async () => {
-    prisma.user.findUnique.mockResolvedValue({ id: 99, email: "test@example.com" });
+    const existingUser = createFakeUser();
+    prisma.user.findUnique.mockResolvedValue(existingUser);
 
     const res = await request(app)
       .post("/api/auth/register")
       .send({
         firstName: "Dup",
         lastName: "User",
-        email: "test@example.com",
+        email: existingUser.email,
         password: "password123",
       });
 
@@ -75,16 +77,17 @@ describe("POST /api/auth/register", () => {
   });
 
   it("should handle DB errors gracefully", async () => {
+    const newUser = createFakeUser({ email: "err@example.com" });
     prisma.user.findUnique.mockResolvedValue(null);
     prisma.user.create.mockRejectedValue(new Error("DB error"));
 
     const res = await request(app)
       .post("/api/auth/register")
       .send({
-        firstName: "Error",
-        lastName: "Test",
-        email: "err@example.com",
-        password: "123",
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email,
+        password: "password123",
       });
 
     expect(res.status).toBe(500);
@@ -95,14 +98,16 @@ describe("POST /api/auth/register", () => {
 });
 
 describe("POST /api/auth/login", () => {
-  it("should log in valid user and return token in success wrapper", async () => {
-    const hashedPassword = bcrypt.hashSync("password123", 10);
-    const fakeUser = { id: 1, email: "test@example.com", password: hashedPassword };
+  it("should log in valid user and return token", async () => {
+    const fakeUser = createFakeUser(); // already has hashed password
     prisma.user.findUnique.mockResolvedValue(fakeUser);
 
     const res = await request(app)
       .post("/api/auth/login")
-      .send({ email: "test@example.com", password: "password123" });
+      .send({
+        email: fakeUser.email,
+        password: "password123",
+      });
 
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
@@ -127,12 +132,14 @@ describe("POST /api/auth/login", () => {
   });
 
   it("should reject wrong password", async () => {
-    const fakeUser = { id: 1, email: "test@example.com", password: bcrypt.hashSync("correct", 10) };
+    const fakeUser = createFakeUser({
+      password: bcrypt.hashSync("correct", 10),
+    });
     prisma.user.findUnique.mockResolvedValue(fakeUser);
 
     const res = await request(app)
       .post("/api/auth/login")
-      .send({ email: "test@example.com", password: "wrong" });
+      .send({ email: fakeUser.email, password: "wrong" });
 
     expect(res.status).toBe(401);
     expect(res.body.success).toBe(false);
