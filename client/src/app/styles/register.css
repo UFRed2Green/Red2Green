@@ -1,12 +1,12 @@
 @import 'tailwindcss';
 
 html {
-    color: #F2E8CF;
+    color: #0A0A0A;
     font-family: 'Inter', sans-serif;
 }
 
 .register-container {
-    background-color: #6A994E;
+    background-color: #F7F9FB;
     display: flex;
     height: 100vh;
 }
@@ -15,7 +15,7 @@ html {
     display: flex;
     flex-direction: column;
     flex: 1;
-    background-color: #52796F;
+    background-color: #F7F9FB;
     align-items: center;
 }
 
@@ -27,23 +27,27 @@ html {
 }
 
 .register-form input {
-    border: 2px solid #2F3E46;
-    background-color: #446461;
-    padding: 10px;
     border-radius: 6px;
-    color: #CAD2C5;
+    background-color: #F3F3F5;
+    padding: 10px;
+    color: #0A0A0A;
     outline: none;
-    transition: all 0.2s ease;
+}
+
+.register-form input::placeholder {
+  color: #717182;
 }
 
 .register-form input:focus {
-    border-color: #F2E8CF;
-    background-color: #446461;
-    box-shadow: 0 0 5px #F2E8CF;
+    outline: none;
+    border: 5px solid #CFCFCF;
+    border-radius: 10px;
+    background-color: #F3F3F5;
 }
 
 .sign-up-button {
-    background-color: #84A98C;
+    background-color: #155DFC;
+    color: #ffffff;
     padding: 16px 175px;
     border-radius: 10px;
     transition: all 0.2s ease;
@@ -53,7 +57,7 @@ html {
 }
 
 .sign-up-button:hover {
-    background-color: #6A994E;
+    background-color: #1447E6;
     font-size: 1.25rem;
     font-weight: 600;
     border-radius: 10px;
@@ -63,7 +67,8 @@ html {
 
 .login-button {
     margin-top: 30px;
-    background-color: #84A98C;
+    color: #ffffff;
+    background-color: #155DFC;
     padding: 16px 55px;
     border-radius: 10px;
     transition: all 0.2s ease;
@@ -73,7 +78,7 @@ html {
 }
 
 .login-button:hover {
-    background-color: #6A994E;
+    background-color: #1447E6;
     font-size: 1.25rem;
     font-weight: 600;
     border-radius: 10px;
