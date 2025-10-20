@@ -79,6 +79,11 @@ Copy that value into your .env under:
 JWT_SECRET=<paste_generated_secret_here>
 ```
 
+Then within the client directory run the following to create the local environment variable
+```bash
+echo "NEXT_PUBLIC_API_URL=http://localhost:5000" > .env.local
+```
+
 ### Step 1. Install Dependencies and Start the App 
 Pull the latest changes from the repository.
 
