@@ -1,16 +1,44 @@
-import Link from "next/link";
+import Link from 'next/link';
+import '@/app/styles/dashboard/dashboard.css'
 
 export default function DashboardPage() {
     return (
         <html><body>
-            <main className="flex flex-col items-center justify-center min-h-screen p-8">
-                <h1 className="text-3xl font-bold">Dashboard</h1>
-                <p className="mt-4 text-gray-600">Welcome back! Here’s your dashboard.</p>
-
-                <div className="mt-6 flex gap-4">
-                    <Link href="/" className="text-blue-600 underline">
-                        Home
-                    </Link>
+            <main className='dashboard-container'>
+                {/* 
+                    Do not remove / edit the containers just build inside them
+                    Feel free to make functions for your elements so theres not so much clutter here 
+                */}
+                <div className='left-column'>
+                    <div className='stock-performance-container card-container'>
+                        Performance chart
+                    </div>
+                    <div className='add-new-trade-container card-container'>
+                        Add new trade
+                    </div>
+                    <div className='trade-history-container card-container'>
+                        Trade history / viewer
+                    </div>
+                </div>
+                <div className='right-column'>
+                    <div className='total-invested-container card-container'>
+                        Total invested
+                    </div>
+                    <div className='total-revenue-container card-container'>
+                        Total revenue
+                    </div>
+                    <div className='realized-pl-container card-container'>
+                        Realized P&L
+                    </div>
+                    <div className='total-trades-container card-container'>
+                        Total trades 
+                    </div>
+                    <div className='risk-reward-container card-container'>
+                        Risk Reward
+                    </div>
+                    <div className='position-sizes-container card-container'>
+                        Position sizes bar chart
+                    </div>
                 </div>
             </main>
         </body></html>

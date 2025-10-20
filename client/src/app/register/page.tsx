@@ -11,7 +11,7 @@ export default function RegisterPage() {
     return (
         <html><body>
             <main className='register-container'>
-                
+
                 <HeroSection />
                 <RegisterForm />
             </main>
@@ -29,9 +29,9 @@ function HeroSection() {
             </p>
 
             <div className='stock-line'>
-                <AiOutlineStock size={400} className='stock-icon'/>
+                <AiOutlineStock size={400} className='stock-icon' />
             </div>
-            
+
             <div className='red-to-green-container'>
                 <span className='red-text'>Red</span>
                 <span className='two-text'>2</span>
@@ -66,7 +66,7 @@ function RegisterForm() {
                 <input type='last-name' placeholder='Last Name' onChange={e => setLastName(e.target.value)}/>
                 <input type='email' placeholder='user@email.com' onChange={e => setEmail(e.target.value)}/>
                 <div className='password-container'>
-                    <input 
+                    <input
                         type={showPassword ? 'text' : 'password'}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -78,7 +78,7 @@ function RegisterForm() {
                         <button
                             type='button'
                             className='hide-password-icon'
-                            onClick={() => setShowPassword(!showPassword)}    
+                            onClick={() => setShowPassword(!showPassword)}
                         >
                             {showPassword ? <RiEyeOffFill /> : <RiEyeFill />}
                         </button>
