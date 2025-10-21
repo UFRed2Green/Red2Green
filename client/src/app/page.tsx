@@ -16,6 +16,9 @@ export default function LandingPage() {
           <Link href="/dashboard" className="text-blue-600 underline">
             Dashboard
           </Link>
+          <Link href="/forgotPassword" className="text-blue-600 underline">
+            Forgot Password
+          </Link>
         </div>
       </main>
     </body></html>
