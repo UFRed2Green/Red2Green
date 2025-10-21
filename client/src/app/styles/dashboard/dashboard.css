@@ -1,0 +1,67 @@
+@import 'tailwindcss';
+
+/* 
+This is not the place to add lots of classes for complex components of the dashboard
+Large components should get their own .css file in client/src/app/styles/dashboard/
+*/
+
+html {
+    color: #0A0A0A;
+    font-family: 'Inter', sans-serif;
+    background-color: #F5F8FA;
+    margin: 0;
+    height: 100%;
+}
+
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    min-height: 100vh;
+    height: auto;
+}
+
+.left-column {
+    flex: 2;    
+    flex-direction: column;
+    padding: 35px;
+}
+
+.right-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 35px;
+}
+
+.card-container {
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    margin-bottom: 5vh;
+}
+
+.total-invested-container,
+.total-revenue-container,
+.realized-pl-container,
+.total-trades-container,
+.risk-reward-container,
+.position-sizes-container {
+    flex: 1;
+}
+
+.position-sizes-container,
+.trade-history-container {
+    margin-bottom: 0;
+}
+
+.stock-performance-container {
+    height: 60vh;
+}
+
+.add-new-trade-container {
+    height: 40vh;
+}
+
+.trade-history-container {
+    height: 60vh;
+}

@@ -1,0 +1,44 @@
+/**
+ * Prisma schema docs: https://pris.ly/d/prisma-schema
+ * Prisma acts as an ORM (Object-Relational Mapper), allowing the backend
+ * to interact with the PostgreSQL database using an auto-generated,
+ * type-safe client instead of writing raw SQL queries.
+ */
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TradeType {
+  BUY
+  SELL
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email      String   @unique
+  password   String
+  trades     Trade[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Trade {
+  tradeId   String    @id @default(uuid())
+  ticker    String
+  tradeType TradeType
+  quantity  Int
+  price     Decimal   @db.Decimal(10, 2)
+  tradeDate DateTime  @default(now())
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
