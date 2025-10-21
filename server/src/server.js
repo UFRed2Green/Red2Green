@@ -3,6 +3,7 @@ import authRoutes from "./routes/auth-routes.js";
 import tradeRoutes from "./routes/trade-routes.js";
 import emailRoutes from "./routes/email-routes.js";
 import verifyToken from "./middleware/auth-middleware.js";
+import forgotPasswordRoute from "./routes/forgot-pass-routes.js";
 import cors from "cors";
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/trades", verifyToken, tradeRoutes);
 app.use("/api/email", emailRoutes);
+app.use("/api/forgot-pass", forgotPasswordRoute);
 app.get("/", (req, res) => {
     res.send("Server is running");
 });
