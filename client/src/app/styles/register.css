@@ -5,6 +5,11 @@ html {
     font-family: 'Inter', sans-serif;
 }
 
+h3 {
+    margin-bottom: -20px;
+    margin-left: 1;
+}
+
 .register-container {
     background-color: #F7F9FB;
     display: flex;
