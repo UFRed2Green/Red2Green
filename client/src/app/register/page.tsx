@@ -1,7 +1,7 @@
 "use client";
 
 import '@/app/styles/register.css';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import { AiOutlineStock } from "react-icons/ai";
 import { useState } from 'react';
@@ -42,8 +42,9 @@ function HeroSection() {
 }
 
 function RegisterForm() {
-    const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter();
 
+    const [showPassword, setShowPassword] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -90,7 +91,9 @@ function RegisterForm() {
                 </div>
                 <button className='sign-up-button' type="submit">Sign Up</button>
             </form>
-            <button className='login-button'>Already have an account? Log in</button>
+            <button className='login-button' onClick={() => {
+                router.push('/login');
+            }}>Already have an account? Log in</button>
         </div>
     );
 }

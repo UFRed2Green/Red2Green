@@ -133,8 +133,8 @@ h3 {
 
 .red-to-green-container {
     position: absolute;
-    bottom: 5vh;
-    left: 6vw;
+    bottom: 2vh;
+    left: 2.5vw;
     display: flex;
     align-items: center;
     gap: 0.1px;
