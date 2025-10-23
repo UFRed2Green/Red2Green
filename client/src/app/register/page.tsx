@@ -1,7 +1,7 @@
 "use client";
 
 import '@/app/styles/register.css';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import { AiOutlineStock } from "react-icons/ai";
 import { useState } from 'react';
@@ -40,8 +40,9 @@ function HeroSection() {
 }
 
 function RegisterForm() {
-    const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter();
 
+    const [showPassword, setShowPassword] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -60,16 +61,20 @@ function RegisterForm() {
         <div className='register-form-container'>
             <h1 className='register-form-header'>Create an account</h1>
             <form className='register-form' onSubmit={handleRegister}>
-                <input type='first-name' placeholder='First Name' onChange={e => setFirstName(e.target.value)}/>
-                <input type='last-name' placeholder='Last Name' onChange={e => setLastName(e.target.value)}/>
+                <h3>First Name</h3>
+                <input type='first-name' placeholder='Red' onChange={e => setFirstName(e.target.value)}/>
+                <h3>Last Name</h3>
+                <input type='last-name' placeholder='Green' onChange={e => setLastName(e.target.value)}/>
+                <h3>Email</h3>
                 <input type='email' placeholder='user@email.com' onChange={e => setEmail(e.target.value)}/>
+                <h3>Password</h3>
                 <div className='password-container'>
                     <input
                         type={showPassword ? 'text' : 'password'}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className='password-input'
-                        placeholder='Password'
+                        placeholder='••••••••••'
                     />
 
                     {password.length > 0 && (
@@ -84,7 +89,9 @@ function RegisterForm() {
                 </div>
                 <button className='sign-up-button' type="submit">Sign Up</button>
             </form>
-            <button className='login-button'>Already have an account? Log in</button>
+            <button className='login-button' onClick={() => {
+                router.push('/login');
+            }}>Already have an account? Log in</button>
         </div>
     );
 }
