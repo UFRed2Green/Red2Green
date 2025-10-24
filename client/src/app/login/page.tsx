@@ -19,26 +19,31 @@ export default function LoginPage() {
         <div className="right">
           <div className="form-container">
             <h2>Login</h2>
+            <form className='login-form'>
+              <h3>First Name</h3>
+              <div className='email-container'>
+                <input type="email" placeholder="user@email.com" />
+              </div>
+              
+              <h3>Password</h3>
+              <div className='password-container'>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className='password-input'
+                  placeholder='••••••••••'
+                />
+                <span
+                  className={`hide-password-icon ${showPassword ? 'active' : ''}`}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  { password.length > 0 && (showPassword ? <RiEyeOffFill /> : <RiEyeFill />)}
+                </span>
+              </div>
 
-            <input type="email" placeholder="user@email.com" />
-
-            <div className='password-container'>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className='password-input'
-                placeholder='Password'
-              />
-              <span
-                className={`hide-password-icon ${showPassword ? 'active' : ''}`}
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <RiEyeOffFill /> : <RiEyeFill />}
-              </span>
-            </div>
-
-            <button>Login</button>
+              <button>Login</button>
+            </form>
           </div>
         </div>
       </div>

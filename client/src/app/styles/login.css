@@ -1,207 +1,225 @@
-* {
-    box-sizing: border-box;
-  }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
 
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
+h3 {
+  margin-bottom: -20px;
+  margin-left: 0.5vw;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 100;
+}
 
-  .container {
-    display: flex;
-    height: 100vh;
-  }
+.container {
+  display: flex;
+  height: 100vh;
+}
 
-  /* LEFT SIDE */
-  .register-hero-section-container {
-    flex: 1;
-    background-color: #CAD2C5;
-    }
+/* LEFT SIDE */
+.register-hero-section-container {
+  flex: 1;
+  background-color: #CAD2C5;
+}
 
-    .welcome-text {
-    display: flex;
-    flex-direction: column;
-    margin-top: 10vh;
-    margin-left: 6vw;
-    color: #2F3E46;
-    font-size: 2.5rem;
-    font-weight: bold;
-    }
+.welcome-text {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10vh;
+  margin-left: 6vw;
+  color: #2F3E46;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
 
-    .stock-line {
-    position: absolute;
-    top: 50%;
-    left: 23%;
-    transform: translate(-50%, -50%);
-    }
+.stock-line {
+  position: absolute;
+  top: 50%;
+  left: 23%;
+  transform: translate(-50%, -50%);
+}
 
-    .stock-icon {
-    color: #52796F;
-    }
+.stock-icon {
+  color: #52796F;
+}
 
-    .red-to-green-container {
-    position: absolute;
-    bottom: 5vh;
-    left: 6vw;
-    display: flex;
-    align-items: center;
-    gap: 0.1px;
-    font-size: 4.5rem;
-    font-weight: bold;
-    }
+.red-to-green-container {
+  position: absolute;
+  bottom: 5vh;
+  left: 6vw;
+  display: flex;
+  align-items: center;
+  gap: 0.1px;
+  font-size: 4.5rem;
+  font-weight: bold;
+}
 
-    .red-text {
-    color: #db4437;
-    }
+.red-text {
+  color: #db4437;
+}
 
-    .two-text {
-    color: #737373;
-    }
+.two-text {
+  color: #737373;
+}
 
-    .green-text {
-    color: #0f9d58;
-    }
+.green-text {
+  color: #0f9d58;
+}
 
-  .left {
-    flex: 1;
-    background-color: #ccd4c6;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 80px 80px 60px 80px;
-  }
+.left {
+  flex: 1;
+  background-color: #ccd4c6;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 80px 80px 60px 80px;
+}
 
-  .left-text {
-    max-width: 400px;
-  }
+.left-text {
+  max-width: 400px;
+}
 
-  .left-text h2 {
-    font-size: 2rem;
-    color: #2c3e3e;
-    font-weight: 700;
-    margin: 0;
-    line-height: 1.4;
-  }
+.left-text h2 {
+  font-size: 2rem;
+  color: #2c3e3e;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.4;
+}
 
-  .bottom-left {
-    text-align: center;
-  }
+.bottom-left {
+  text-align: center;
+}
 
-  .chart {
-    width: 120px;
-    height: 120px;
-    border-bottom: 10px solid #4e6f66;
-    margin: 0 auto 40px auto;
-    position: relative;
-  }
+.chart {
+  width: 120px;
+  height: 120px;
+  border-bottom: 10px solid #4e6f66;
+  margin: 0 auto 40px auto;
+  position: relative;
+}
 
-  .chart::before {
-    content: '';
-    position: absolute;
-    width: 90px;
-    height: 60px;
-    border-left: 10px solid #4e6f66;
-    border-top: 10px solid #4e6f66;
-    transform: rotate(45deg);
-    top: 15px;
-    left: 15px;
-  }
+.chart::before {
+  content: '';
+  position: absolute;
+  width: 90px;
+  height: 60px;
+  border-left: 10px solid #4e6f66;
+  border-top: 10px solid #4e6f66;
+  transform: rotate(45deg);
+  top: 15px;
+  left: 15px;
+}
 
-  .logo {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-  }
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
 
-  .logo span.red {
-    color: red;
-  }
+.logo span.red {
+  color: red;
+}
 
-  .logo span.gray {
-    color: gray;
-  }
+.logo span.gray {
+  color: gray;
+}
 
-  .logo span.green {
-    color: green;
-  }
+.logo span.green {
+  color: green;
+}
 
-  /* RIGHT SIDE */
-  .right {
-    flex: 1;
-    background-color: #f9fafb;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* RIGHT SIDE */
+.right {
+  flex: 1;
+  background-color: #F7F9FB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .form-container {
-    width: 80%;
-    max-width: 350px;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 80%;
+  max-width: 350px;
+  text-align: center;
+}
+
+.login-form {
+  gap: 25px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 8vh;
+}
+
+.email-container {
+  width: 22vw;
+  display: flex;
 }
 
 .form-container h2 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #000000;
-    margin-bottom: 20px;
-    text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 10vh;
+  margin-top: 15vh;
+  text-align: center;
 }
 
 .form-container input {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 8px;
-    background-color: #f5f5f5;
-    font-size: 1rem;
-    outline: none;
-    transition: box-shadow 0.2s, background-color 0.2s;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #F3F3F5;
+  font-size: 1rem;
+  outline: none;
+  transition: box-shadow 0.2s, background-color 0.2s;
 }
 
 .form-container input:focus {
-    background-color: #fff;
-    box-shadow: 0 0 0 2px #007bff;
+  background-color: #fff;
+  box-shadow: 0 0 0 2px #007bff;
 }
 
 .form-container button {
-    width: 100%;
-    padding: 14px;
-    background-color: #0066ff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  width: 100%;
+  padding: 14px;
+  background-color: #155DFC;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.25rem;
+  width: 22vw;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .form-container button:hover {
-    background-color: #0052cc;
+  background-color: #1447E6;
+  transition: all 0.2s ease;
 }
 
 /* Password field with eye toggle */
 .password-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.password-input {
-    width: 100%;
-    padding-right: 2.5rem; /* space for the eye icon */
+  width: 22vw;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .hide-password-icon {
-    position: absolute;
-    right: 1rem;
-    color: #6b7280; /* grey by default */
-    cursor: pointer;
-    transition: color 0.2s;
+  position: absolute;
+  right: 1rem;
+  color: #374151;
+  cursor: pointer;
 }
 
 .hide-password-icon.active {
-    color: #ffffff; /* white when clicked */
+  color: #374151;
 }
