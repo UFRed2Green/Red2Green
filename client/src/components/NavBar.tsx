@@ -30,19 +30,19 @@ export default function NavBar() {
       <div className="nav-links">
         {isAuthenticated && (
           <>
-            <Link href="/dashboard" className={isActive('/dashboard') ? 'active' : ''}>
+            <Link href="/dashboard/dashboard" className={isActive('/dashboard/dashboard') ? 'active' : ''}>
               <FaChartLine className="nav-icon" />
               <span>Dashboard</span>
             </Link>
-            <Link href="/trades" className={isActive('/trades') ? 'active' : ''}>
+            <Link href="/dashboard/trades" className={isActive('/trades') ? 'active' : ''}>
               <FaExchangeAlt className="nav-icon" />
               <span>Trades</span>
             </Link>
-            <Link href="/watchlist" className={isActive('/watchlist') ? 'active' : ''}>
+            <Link href="/dashboard/watchlist" className={isActive('/watchlist') ? 'active' : ''}>
               <FaEye className="nav-icon" />
               <span>Watchlist</span>
             </Link>
-            <Link href="/settings" className={isActive('/settings') ? 'active' : ''}>
+            <Link href="/dashboard/settings" className={isActive('/settings') ? 'active' : ''}>
               <FaCog className="nav-icon" />
               <span>Settings</span>
             </Link>
