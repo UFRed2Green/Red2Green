@@ -23,11 +23,18 @@ body {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    transition: color 0.2s;
+    transition: color 0.2s, border-bottom-color 0.2s;
+    border-bottom: 3px solid transparent;
+    padding-bottom: 7px;
   }
 
   .topbar .nav-links a:hover {
     color: #d9f1ff;
+  }
+
+  .topbar .nav-links a.active {
+    border-bottom-color: #ffffff;
+    color: #ffffff;
   }
 
   /* Logout button styling */
