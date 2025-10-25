@@ -88,9 +88,6 @@ function RegisterForm() {
                 </div>
                 <button className='sign-up-button' type="submit">Sign Up</button>
             </form>
-            <button className='login-button' onClick={() => {
-                router.push('/login');
-            }}>Already have an account? Log in</button>
         </div>
     );
 }
