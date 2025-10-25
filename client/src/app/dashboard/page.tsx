@@ -1,9 +1,13 @@
 import Link from 'next/link';
-import '@/app/styles/dashboard/dashboard.css'
+import '@/app/styles/dashboard/dashboard.css';
+import '@/app/styles/navbar.css';
+import NavBar from '@/app/components/NavBar';
 
 export default function DashboardPage() {
     return (
         <html><body>
+            <NavBar />
+
             <main className='dashboard-container'>
                 {/* 
                     Do not remove / edit the containers just build inside them
