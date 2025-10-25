@@ -9,13 +9,10 @@ import { register } from '@/lib/register';
 
 export default function RegisterPage() {
     return (
-        <html><body>
-            <main className='register-container'>
-
-                <HeroSection />
-                <RegisterForm />
-            </main>
-        </body></html>
+        <main className='register-container'>
+            <HeroSection />
+            <RegisterForm />
+        </main>
     );
 }
 
