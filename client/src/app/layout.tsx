@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import '@/app/styles/globals.css';
 import { AuthProvider } from '@/context/AuthContext';
+import NavBar from '@/components/NavBar';
 
 export const metadata = {
   title: 'Red2Green - Trading Tracker',
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
+          <NavBar />
           {children}
         </AuthProvider>
       </body>
