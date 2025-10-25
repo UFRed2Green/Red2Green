@@ -34,15 +34,15 @@ export default function NavBar() {
               <FaChartLine className="nav-icon" />
               <span>Dashboard</span>
             </Link>
-            <Link href="/dashboard/trades" className={isActive('/trades') ? 'active' : ''}>
+            <Link href="/dashboard/trades" className={isActive('/dashboard/trades') ? 'active' : ''}>
               <FaExchangeAlt className="nav-icon" />
               <span>Trades</span>
             </Link>
-            <Link href="/dashboard/watchlist" className={isActive('/watchlist') ? 'active' : ''}>
+            <Link href="/dashboard/watchlist" className={isActive('/dashboard/watchlist') ? 'active' : ''}>
               <FaEye className="nav-icon" />
               <span>Watchlist</span>
             </Link>
-            <Link href="/dashboard/settings" className={isActive('/settings') ? 'active' : ''}>
+            <Link href="/dashboard/settings" className={isActive('/dashboard/settings') ? 'active' : ''}>
               <FaCog className="nav-icon" />
               <span>Settings</span>
             </Link>
