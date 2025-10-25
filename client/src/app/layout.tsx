@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import '@/app/styles/globals.css';
+import { AuthProvider } from '@/context/AuthContext';
 
 export const metadata = {
   title: 'Red2Green - Trading Tracker',
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

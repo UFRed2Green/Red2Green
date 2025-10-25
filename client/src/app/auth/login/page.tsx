@@ -2,12 +2,31 @@
 
 import '@/app/styles/login.css'
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { AiOutlineStock } from "react-icons/ai";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { login } = useAuth();
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      await login(email, password);
+      // Redirect to dashboard on successful login
+      router.replace("/dashboard/dashboard");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="container">
@@ -18,10 +37,17 @@ export default function LoginPage() {
       <div className="right">
         <div className="form-container">
           <h2>Login</h2>
-          <form className='login-form'>
-            <h3>First Name</h3>
+          <form className='login-form' onSubmit={handleSubmit}>
+            <h3>Email</h3>
             <div className='email-container'>
-              <input type="email" placeholder="user@email.com" />
+              <input
+                type="email"
+                placeholder="user@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={isLoading}
+              />
             </div>
 
             <h3>Password</h3>
@@ -32,6 +58,8 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 className='password-input'
                 placeholder='••••••••••'
+                required
+                disabled={isLoading}
               />
               <span
                 className={`hide-password-icon ${showPassword ? 'active' : ''}`}
@@ -41,7 +69,9 @@ export default function LoginPage() {
               </span>
             </div>
 
-            <button>Login</button>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Logging in..." : "Login"}
+            </button>
           </form>
         </div>
       </div>
