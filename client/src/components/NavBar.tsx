@@ -2,15 +2,21 @@
 
 import '@/app/styles/navbar.css';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { FaChartLine, FaExchangeAlt, FaEye, FaCog, FaSignOutAlt, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
 
 export default function NavBar() {
   const pathname = usePathname();
-  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+  const { isAuthenticated, logout } = useAuth();
 
   const isActive = (href: string) => pathname === href;
+
+  const handleLogout = () => {
+    logout();
+    router.push('/');
+  };
 
   return (
     <div className="topbar">
@@ -46,7 +52,7 @@ export default function NavBar() {
 
       <div className="auth-buttons">
         {isAuthenticated ? (
-          <button className="logout" disabled>
+          <button onClick={handleLogout} className="logout">
             <FaSignOutAlt className="button-icon" />
             <span>Logout</span>
           </button>
