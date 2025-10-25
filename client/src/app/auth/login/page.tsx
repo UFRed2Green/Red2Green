@@ -3,6 +3,7 @@
 import '@/app/styles/login.css'
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { AiOutlineStock } from "react-icons/ai";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import { useAuth } from "@/context/AuthContext";
@@ -73,6 +74,11 @@ export default function LoginPage() {
               {isLoading ? "Logging in..." : "Login"}
             </button>
           </form>
+          <div className="auth-links">
+            <Link href="/auth/forgotPassword" className="forgot-password-link">
+              Forgot Password?
+            </Link>
+          </div>
         </div>
       </div>
     </div>
