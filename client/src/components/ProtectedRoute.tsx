@@ -19,7 +19,11 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     }, [isLoading, isAuthenticated, router]);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div style={{ display: 'none' }} />;
+    }
+
+    if (!isAuthenticated) {
+        return <div style={{ display: 'none' }} />;
     }
 
     return <>{children}</>;
