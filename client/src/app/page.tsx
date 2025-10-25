@@ -12,7 +12,7 @@ export default function LandingPage() {
         <Link href="/auth/register" className="text-blue-600 underline">
           Register
         </Link>
-        <Link href="/dashboard" className="text-blue-600 underline">
+        <Link href="/dashboard/dashboard" className="text-blue-600 underline">
           Dashboard
         </Link>
         <Link href="/auth/forgotPassword" className="text-blue-600 underline">
