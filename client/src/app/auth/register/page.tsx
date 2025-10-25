@@ -9,13 +9,10 @@ import { register } from '@/lib/register';
 
 export default function RegisterPage() {
     return (
-        <html><body>
-            <main className='register-container'>
-
-                <HeroSection />
-                <RegisterForm />
-            </main>
-        </body></html>
+        <main className='register-container'>
+            <HeroSection />
+            <RegisterForm />
+        </main>
     );
 }
 
@@ -91,9 +88,6 @@ function RegisterForm() {
                 </div>
                 <button className='sign-up-button' type="submit">Sign Up</button>
             </form>
-            <button className='login-button' onClick={() => {
-                router.push('/login');
-            }}>Already have an account? Log in</button>
         </div>
     );
 }

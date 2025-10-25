@@ -59,37 +59,35 @@ export default function ForgotPasswordPage() {
     }
 
     return (
-        <html><body>
-            <main>
-                <div className='forgot-password-container'>
-                    <h1>Reset your password</h1>
-                    <form className='forgot-password-form'>
-                        <h3>Email</h3>
-                        <input type='email' placeholder='user@email.com' onChange={(e) => setEmail(e.target.value)}></input>
+        <main>
+            <div className='forgot-password-container'>
+                <h1>Reset your password</h1>
+                <form className='forgot-password-form'>
+                    <h3>Email</h3>
+                    <input type='email' placeholder='user@email.com' onChange={(e) => setEmail(e.target.value)}></input>
 
-                        { fullyVisible && 
-                            <>
-                                <h3>Code</h3>
-                                <input type='text' placeholder='123456' onChange={(e) => setCode(e.target.value)}></input>
-                                <h3>New Password</h3>
-                                <input type='text' placeholder='••••••••••' onChange={(e) => setNewPassword(e.target.value)}></input>
-                            </>
-                        }
-                        
-                        <button type='submit' className='enter-button' onClick={(e) => {handleSubmit(e)}}>{fullyVisible ? 'Change Password' : 'Send Code'}</button>
-                    </form>
-                    { fullyVisible && <button className='bottom-button' onClick={handleResend}>Resend Code</button>}
-                    <button className='bottom-button' onClick={() => {
-                        router.push('/login');
-                    }}>Back to Login</button>
-                    <div style={{margin: '20px'}}></div>
-                </div>
-                <div className='red-to-green-container'>
-                    <span className='red-text'>Red</span>
-                    <span className='two-text'>2</span>
-                    <span className='green-text'>Green</span>
-                </div>
-            </main>
-        </body></html>
+                    { fullyVisible &&
+                        <>
+                            <h3>Code</h3>
+                            <input type='text' placeholder='123456' onChange={(e) => setCode(e.target.value)}></input>
+                            <h3>New Password</h3>
+                            <input type='text' placeholder='••••••••••' onChange={(e) => setNewPassword(e.target.value)}></input>
+                        </>
+                    }
+
+                    <button type='submit' className='enter-button' onClick={(e) => {handleSubmit(e)}}>{fullyVisible ? 'Change Password' : 'Send Code'}</button>
+                </form>
+                { fullyVisible && <button className='bottom-button' onClick={handleResend}>Resend Code</button>}
+                <button className='bottom-button' onClick={() => {
+                    router.push('/login');
+                }}>Back to Login</button>
+                <div style={{margin: '20px'}}></div>
+            </div>
+            <div className='red-to-green-container'>
+                <span className='red-text'>Red</span>
+                <span className='two-text'>2</span>
+                <span className='green-text'>Green</span>
+            </div>
+        </main>
     );
 }

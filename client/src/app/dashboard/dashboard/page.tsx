@@ -1,17 +1,13 @@
-import Link from 'next/link';
 import '@/app/styles/dashboard/dashboard.css';
-import '@/app/styles/navbar.css';
-import NavBar from '@/app/components/NavBar';
+import { ProtectedRoute } from '@/components/ProtectedRoute';
 
 export default function DashboardPage() {
     return (
-        <html><body>
-            <NavBar />
-
+        <ProtectedRoute>
             <main className='dashboard-container'>
-                {/* 
+                {/*
                     Do not remove / edit the containers just build inside them
-                    Feel free to make functions for your elements so theres not so much clutter here 
+                    Feel free to make functions for your elements so theres not so much clutter here
                 */}
                 <div className='left-column'>
                     <div className='stock-performance-container card-container'>
@@ -35,7 +31,7 @@ export default function DashboardPage() {
                         Realized P&L
                     </div>
                     <div className='total-trades-container card-container'>
-                        Total trades 
+                        Total trades
                     </div>
                     <div className='risk-reward-container card-container'>
                         Risk Reward
@@ -45,6 +41,6 @@ export default function DashboardPage() {
                     </div>
                 </div>
             </main>
-        </body></html>
+        </ProtectedRoute>
     );
 }
