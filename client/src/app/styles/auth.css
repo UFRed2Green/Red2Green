@@ -97,7 +97,10 @@
 /* Hero Section */
 .auth-hero-section-container {
     flex: 1;
-    background-color: #CAD2C5;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url("/assets/auth-background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     position: relative;
     min-height: 100vh;
 }
@@ -117,10 +120,12 @@
     top: 50%;
     left: 23%;
     transform: translate(-50%, -50%);
+    display: none;
 }
 
 .stock-icon {
     color: #52796F;
+    display: none;
 }
 
 .red-to-green-container {
