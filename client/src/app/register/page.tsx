@@ -58,6 +58,7 @@ function RegisterForm() {
     }
 
     return (
+        <html><body>
         <div className='register-form-container'>
             <h1 className='register-form-header'>Create an account</h1>
             <form className='register-form' onSubmit={handleRegister}>
@@ -93,5 +94,6 @@ function RegisterForm() {
                 router.push('/login');
             }}>Already have an account? Log in</button>
         </div>
+        </body></html>
     );
 }

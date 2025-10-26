@@ -2,6 +2,7 @@ import Link from "next/link";
 
 export default function LoginPage() {
     return (
+        <html><body>
         <main className="flex flex-col items-center justify-center min-h-screen p-8">
             <h1 className="text-3xl font-semibold">Login</h1>
             <form className="flex flex-col gap-4 mt-6 w-80">
@@ -18,5 +19,6 @@ export default function LoginPage() {
                 </Link>
             </div>
         </main>
+        </body></html>
     );
 }

@@ -1,203 +1,132 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-
-type Trade = {
-  tradeId?: string;
-  ticker: string;
-  tradeType: "BUY" | "SELL";
-  quantity: number;
-  price: number;
-  tradeDate?: string;
-};
+import "@/app/styles/dashboard/dashboard.css";
+import { useState } from "react";
 
 export default function DashboardPage() {
-  const [showTrade, setShowTrade] = useState(false);
-  const [ticker, setTicker] = useState("");
-  const [tradeType, setTradeType] = useState<"BUY" | "SELL">("BUY");
-  const [quantity, setQuantity] = useState(1);
-  const [price, setPrice] = useState<number | "">("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
-  const [trades, setTrades] = useState<Trade[]>([]);
+  // Example local state for trades
+  const [trades, setTrades] = useState([
+    { ticker: "AAPL", type: "BUY", qty: 10, price: 150 },
+    { ticker: "MSFT", type: "SELL", qty: 5, price: 310 },
+  ]);
 
-  function handleClick() {
-    setShowTrade(true);
-    setError(null);
-    setSuccess(null);
-  }
-
-  function closeTrade() {
-    setShowTrade(false);
-  }
-
-  function validate(): string | null {
-    if (!ticker.trim()) return "Ticker is required";
-    if (!["BUY", "SELL"].includes(tradeType)) return "Trade type must be BUY or SELL";
-    if (!Number.isInteger(Number(quantity)) || Number(quantity) <= 0) return "Quantity must be a positive integer";
-    const p = Number(price);
-    if (!Number.isFinite(p) || p <= 0) return "Price must be a positive number";
-    return null;
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError(null);
-    setSuccess(null);
-
-    const v = validate();
-    if (v) {
-      setError(v);
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-      const res = await fetch("/api/trades", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token ? { Authorization: token } : {}),
-        },
-        body: JSON.stringify({
-          ticker: ticker.trim(),
-          tradeType,
-          quantity: Number(quantity),
-          price: Number(price),
-        }),
-      });
-
-      const json = await res.json();
-      if (!res.ok) {
-        setError(json?.error?.message || json?.message || "Failed to add trade");
-        setLoading(false);
-        return;
-      }
-
-      const created: Trade = json?.data || json;
-      setTrades((prev) => [created, ...prev]);
-      setSuccess("Trade added successfully");
-      // reset form
-      setTicker("");
-      setTradeType("BUY");
-      setQuantity(1);
-      setPrice("");
-      // close after short delay
-      setTimeout(() => {
-        setShowTrade(false);
-      }, 700);
-    } catch (err: any) {
-      setError(err.message || "Network error");
-    } finally {
-      setLoading(false);
-    }
+  function addTrade(trade: any) {
+    setTrades([...trades, trade]);
   }
 
   return (
-    <main className="flex flex-col items-center justify-start min-h-screen p-8">
-      <h1 className="text-3xl font-bold">Dashboard</h1>
-      <p className="mt-4 text-gray-600">Welcome back! Here’s your dashboard.</p>
+    <html><body>
+        <main className="dashboard-container">
+          {/* LEFT COLUMN */}
+          <div className="left-column">
+            {/* --- PERFORMANCE CHART --- */}
+            <div className="stock-performance-container card-container">
+              <h2>Performance Chart</h2>
+              {/* Insert chart component here later */}
+              <div className="chart-placeholder">[Chart coming soon]</div>
+            </div>
 
-      <div className="mt-6 flex gap-4">
-        <Link href="/" className="text-blue-600 underline">
-          Home
-        </Link>
-        <button
-          onClick={handleClick}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Trade
-        </button>
-      </div>
+            {/* --- ADD NEW TRADE --- */}
+            <div className="add-new-trade-container card-container">
+              <h2>Add New Trade</h2>
+              <TradeForm onAddTrade={addTrade} />
+            </div>
 
-      {/* Trades list */}
-      <div className="w-full max-w-3xl mt-8">
-        <h2 className="text-xl font-semibold mb-4">Recent Trades</h2>
-        {trades.length === 0 ? (
-          <div className="text-gray-500">No trades yet</div>
-        ) : (
-          <table className="w-full table-auto border-collapse">
-            <thead>
-              <tr className="text-left text-sm text-gray-600">
-                <th className="px-2 py-1">Date</th>
-                <th className="px-2 py-1">Ticker</th>
-                <th className="px-2 py-1">Type</th>
-                <th className="px-2 py-1">Qty</th>
-                <th className="px-2 py-1">Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {trades.map((t, idx) => (
-                <tr key={t.tradeId || idx} className="border-t">
-                  <td className="px-2 py-1 text-sm text-gray-600">{t.tradeDate ? new Date(t.tradeDate).toLocaleString() : "-"}</td>
-                  <td className="px-2 py-1 text-sm">{t.ticker}</td>
-                  <td className="px-2 py-1 text-sm">{t.tradeType}</td>
-                  <td className="px-2 py-1 text-sm">{t.quantity}</td>
-                  <td className="px-2 py-1 text-sm">{t.price}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
-
-      {/* Trade Modal */}
-      {showTrade && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 className="text-xl font-bold mb-4">Make a Trade</h2>
-
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-              <label className="text-sm">Ticker</label>
-              <input
-                value={ticker}
-                onChange={(e) => setTicker(e.target.value)}
-                className="border p-2 rounded"
-                placeholder="e.g. AAPL"
-              />
-
-              <label className="text-sm">Type</label>
-              <select value={tradeType} onChange={(e) => setTradeType(e.target.value as any)} className="border p-2 rounded">
-                <option value="BUY">BUY</option>
-                <option value="SELL">SELL</option>
-              </select>
-
-              <label className="text-sm">Quantity</label>
-              <input
-                type="number"
-                value={quantity}
-                min={1}
-                onChange={(e) => setQuantity(Number(e.target.value))}
-                className="border p-2 rounded"
-              />
-
-              <label className="text-sm">Price</label>
-              <input
-                type="number"
-                step="0.01"
-                value={price as any}
-                onChange={(e) => setPrice(e.target.value === "" ? "" : Number(e.target.value))}
-                className="border p-2 rounded"
-              />
-
-              {error && <div className="text-red-600 text-sm">{error}</div>}
-              {success && <div className="text-green-600 text-sm">{success}</div>}
-
-              <div className="flex justify-end gap-2 mt-2">
-                <button type="button" onClick={closeTrade} className="bg-gray-300 px-3 py-2 rounded">
-                  Cancel
-                </button>
-                <button type="submit" disabled={loading} className="bg-blue-600 text-white px-4 py-2 rounded">
-                  {loading ? "Saving..." : "Submit"}
-                </button>
-              </div>
-            </form>
+            {/* --- TRADE HISTORY --- */}
+            <div className="trade-history-container card-container">
+              <h2>Trade History</h2>
+              <ul>
+                {trades.map((t, i) => (
+                  <li key={i}>
+                    {t.ticker} – {t.type} {t.qty} @ ${t.price}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-      )}
-    </main>
+
+          {/* RIGHT COLUMN */}
+          <div className="right-column">
+            <div className="total-invested-container card-container">
+              <h2>Total Invested</h2>
+              ${trades.reduce((sum, t) => sum + t.qty * t.price, 0)}
+            </div>
+
+            <div className="total-revenue-container card-container">
+              <h2>Total Revenue</h2>
+              $0 {/* Placeholder until you track closed trades */}
+            </div>
+
+            <div className="realized-pl-container card-container">
+              <h2>Realized P&L</h2>
+              Coming soon
+            </div>
+
+            <div className="total-trades-container card-container">
+              <h2>Total Trades</h2>
+              {trades.length}
+            </div>
+
+            <div className="risk-reward-container card-container">
+              <h2>Risk Reward</h2>
+              Coming soon
+            </div>
+
+            <div className="position-sizes-container card-container">
+              <h2>Position Sizes</h2>
+              [Bar chart placeholder]
+            </div>
+          </div>
+        </main>
+      
+    </body></html>
+  );
+}
+
+// --- SMALL TRADE FORM COMPONENT ---
+function TradeForm({ onAddTrade }: { onAddTrade: Function }) {
+  const [ticker, setTicker] = useState("");
+  const [type, setType] = useState("BUY");
+  const [qty, setQty] = useState(0);
+  const [price, setPrice] = useState(0);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    onAddTrade({ ticker, type, qty, price });
+    setTicker("");
+    setQty(0);
+    setPrice(0);
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="trade-form">
+      <input
+        type="text"
+        placeholder="Ticker"
+        value={ticker}
+        onChange={(e) => setTicker(e.target.value)}
+        required
+      />
+      <select value={type} onChange={(e) => setType(e.target.value)}>
+        <option value="BUY">BUY</option>
+        <option value="SELL">SELL</option>
+      </select>
+      <input
+        type="number"
+        placeholder="Quantity"
+        value={qty}
+        onChange={(e) => setQty(Number(e.target.value))}
+        required
+      />
+      <input
+        type="number"
+        placeholder="Price"
+        value={price}
+        onChange={(e) => setPrice(Number(e.target.value))}
+        required
+      />
+      <button type="submit">Add Trade</button>
+    </form>
   );
 }

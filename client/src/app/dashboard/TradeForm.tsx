@@ -48,6 +48,7 @@ export default function TradeForm({ onCreate }: { onCreate?: (t: Trade) => void 
   }
 
   return (
+    <html><body>
     <div className="flex flex-col gap-3">
       {error && <div className="text-red-600 text-sm">{error}</div>}
 
@@ -72,5 +73,6 @@ export default function TradeForm({ onCreate }: { onCreate?: (t: Trade) => void 
         </button>
       </div>
     </div>
+    </body></html>
   );
 }
