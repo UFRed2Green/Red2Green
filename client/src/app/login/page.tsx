@@ -1,24 +1,74 @@
-import Link from "next/link";
+"use client";
+
+import '@/app/styles/login.css'
+import { useState } from "react";
+import { AiOutlineStock } from "react-icons/ai";
+import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 
 export default function LoginPage() {
-    return (
-        <html><body>
-        <main className="flex flex-col items-center justify-center min-h-screen p-8">
-            <h1 className="text-3xl font-semibold">Login</h1>
-            <form className="flex flex-col gap-4 mt-6 w-80">
-                <input type="email" placeholder="Email" className="border p-2 rounded" />
-                <input type="password" placeholder="Password" className="border p-2 rounded" />
-                <button type="submit" className="bg-blue-600 text-white p-2 rounded">
-                    Sign In
-                </button>
-            </form>
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-            <div className="mt-6 flex gap-4">
-                <Link href="/dashboard" className="text-blue-600 underline">
-                    Dashboard
-                </Link>
-            </div>
-        </main>
-        </body></html>
-    );
+  return (
+    <html><body>
+      <div className="container">
+        {/* LEFT PANEL */}
+        <HeroSection />
+
+        {/* RIGHT PANEL */}
+        <div className="right">
+          <div className="form-container">
+            <h2>Login</h2>
+            <form className='login-form'>
+              <h3>First Name</h3>
+              <div className='email-container'>
+                <input type="email" placeholder="user@email.com" />
+              </div>
+              
+              <h3>Password</h3>
+              <div className='password-container'>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className='password-input'
+                  placeholder='••••••••••'
+                />
+                <span
+                  className={`hide-password-icon ${showPassword ? 'active' : ''}`}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  { password.length > 0 && (showPassword ? <RiEyeOffFill /> : <RiEyeFill />)}
+                </span>
+              </div>
+
+              <button>Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </body></html>
+  );
+}
+
+function HeroSection() {
+  return (
+    <div className="register-hero-section-container">
+      <p className="welcome-text">
+        The best way to track your profits.
+        <br />
+        Sign up for free.
+      </p>
+
+      <div className="stock-line">
+        <AiOutlineStock size={400} className="stock-icon" />
+      </div>
+
+      <div className="red-to-green-container">
+        <span className="red-text">Red</span>
+        <span className="two-text">2</span>
+        <span className="green-text">Green</span>
+      </div>
+    </div>
+  );
 }
