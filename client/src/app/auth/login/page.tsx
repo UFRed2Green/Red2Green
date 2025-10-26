@@ -1,6 +1,6 @@
 "use client";
 
-import '@/app/styles/login.css';
+import '@/app/styles/auth.css';
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
   return (
-    <main className="login-container">
+    <main className="auth-container">
       <HeroSection />
       <LoginForm />
     </main>
@@ -19,7 +19,7 @@ export default function LoginPage() {
 
 function HeroSection() {
   return (
-    <div className="login-hero-section-container">
+    <div className="auth-hero-section-container">
       <p className="welcome-text">
         The best way to track your profits.
         <br />
@@ -60,9 +60,9 @@ function LoginForm() {
   };
 
   return (
-    <div className="login-form-container">
-      <h1 className="login-form-header">Login</h1>
-      <form className="login-form" onSubmit={handleSubmit}>
+    <div className="auth-form-container">
+      <h1 className="auth-form-header">Login</h1>
+      <form className="auth-form" onSubmit={handleSubmit}>
         <h3>Email</h3>
         <input
           type="email"
@@ -96,7 +96,7 @@ function LoginForm() {
           )}
         </div>
 
-        <button className="login-button" type="submit" disabled={isLoading}>
+        <button className="auth-button" type="submit" disabled={isLoading}>
           {isLoading ? "Logging in..." : "Login"}
         </button>
       </form>
