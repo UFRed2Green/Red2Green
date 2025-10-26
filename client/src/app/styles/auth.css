@@ -4,7 +4,7 @@
 .auth-container {
     background-color: #F7F9FB;
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .auth-form-container {
@@ -98,6 +98,8 @@
 .auth-hero-section-container {
     flex: 1;
     background-color: #CAD2C5;
+    position: relative;
+    min-height: 100vh;
 }
 
 .welcome-text {
