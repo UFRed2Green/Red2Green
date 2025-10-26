@@ -13,6 +13,7 @@
     flex: 1;
     background-color: #F7F9FB;
     align-items: center;
+    padding-bottom: 40px;
 }
 
 /* Auth Form Styles */
@@ -20,7 +21,7 @@
     gap: 25px;
     display: flex;
     flex-direction: column;
-    margin-top: 8vh;
+    margin-top: 4vh;
 }
 
 .auth-form input {
