@@ -22,7 +22,7 @@ function HeroSection() {
             <p className='welcome-text'>
                 The best way to track your profits.
                 <br />
-                Sign up for free.
+                <span className='subtitle-text'>Sign up for free</span>
             </p>
 
             <div className='stock-line'>
