@@ -13,7 +13,7 @@ export default function ForgotPasswordPage() {
                 className='bottom-button'
                 style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}
                 onClick={() => {
-                    router.push('/login');
+                    router.push('/auth/login');
                 }}>
                 Back to Login
             </button>

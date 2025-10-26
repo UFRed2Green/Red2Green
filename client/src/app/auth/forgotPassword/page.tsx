@@ -8,7 +8,7 @@ import { sendCode, changePass } from "@/lib/forgot-pass";
 export default function ForgotPasswordPage() {
     const router = useRouter();
 
-    const [fullyVisible, setFullyVisible] = useState(true);
+    const [fullyVisible, setFullyVisible] = useState(false);
     const [email, setEmail] = useState("");
     const [code, setCode] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -37,7 +37,7 @@ export default function ForgotPasswordPage() {
                 const data = await changePass(email, code, newPassword);
 
                 if (data.success) {
-                    router.push('/forgotPassword/back');
+                    router.push('/auth/forgotPassword/back');
                 } else {
                     console.log("Failed to change password.");
                 }
@@ -79,7 +79,7 @@ export default function ForgotPasswordPage() {
                 </form>
                 { fullyVisible && <button className='bottom-button' onClick={handleResend}>Resend Code</button>}
                 <button className='bottom-button' onClick={() => {
-                    router.push('/login');
+                    router.push('/auth/login');
                 }}>Back to Login</button>
                 <div style={{margin: '20px'}}></div>
             </div>
