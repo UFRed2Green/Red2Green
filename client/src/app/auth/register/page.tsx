@@ -1,6 +1,6 @@
 "use client";
 
-import '@/app/styles/register.css';
+import '@/app/styles/auth.css';
 import { useRouter } from 'next/navigation';
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import { AiOutlineStock } from "react-icons/ai";
@@ -9,8 +9,7 @@ import { register } from '@/lib/register';
 
 export default function RegisterPage() {
     return (
-        <main className='register-container'>
-
+        <main className='auth-container'>
             <HeroSection />
             <RegisterForm />
         </main>
@@ -19,11 +18,11 @@ export default function RegisterPage() {
 
 function HeroSection() {
     return (
-        <div className='register-hero-section-container'>
+        <div className='auth-hero-section-container'>
             <p className='welcome-text'>
                 The best way to track your profits.
                 <br />
-                Sign up for free.
+                <span className='subtitle-text'>Sign up for free</span>
             </p>
 
             <div className='stock-line'>
@@ -58,10 +57,9 @@ function RegisterForm() {
     }
 
     return (
-        <html><body>
-        <div className='register-form-container'>
-            <h1 className='register-form-header'>Create an account</h1>
-            <form className='register-form' onSubmit={handleRegister}>
+        <div className='auth-form-container'>
+            <h1 className='auth-form-header'>Create an account</h1>
+            <form className='auth-form' onSubmit={handleRegister}>
                 <h3>First Name</h3>
                 <input type='first-name' placeholder='Red' onChange={e => setFirstName(e.target.value)}/>
                 <h3>Last Name</h3>
@@ -88,12 +86,8 @@ function RegisterForm() {
                         </button>
                     )}
                 </div>
-                <button className='sign-up-button' type="submit">Sign Up</button>
+                <button className='auth-button register-button' type="submit">Sign Up</button>
             </form>
-            <button className='login-button' onClick={() => {
-                router.push('/login');
-            }}>Already have an account? Log in</button>
         </div>
-        </body></html>
     );
 }
