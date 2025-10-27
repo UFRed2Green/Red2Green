@@ -55,13 +55,13 @@ html {
 }
 
 .stock-performance-container {
-    height: 60vh;
+    height: 45vh;
 }
 
 .add-new-trade-container {
-    height: 40vh;
+    height: 65vh;
 }
 
 .trade-history-container {
-    height: 60vh;
+    height: 45vh;
 }
