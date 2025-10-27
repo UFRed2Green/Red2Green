@@ -1,29 +1,17 @@
 import '@/app/styles/dashboard/trade-form.css';
 
-export type Trade = {
-  tradeId?: string;
-  tradeDate?: string;
-  ticker: string;
-  tradeType: "BUY" | "SELL";
-  quantity: number;
-  price: number;
-};
-
 export default function TradeForm() {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // TODO: Implement trade adding functionality
+  };
+
   return (
     <div className="trade-form-container">
-      {/* Header Section */}
-      <div className="trade-form-header">
-        <div className="trade-form-title">
-          <div className="trade-form-icon">+</div>
-          <h2 className="trade-form-heading">Add New Trade</h2>
-        </div>
-        <p className="trade-form-subtitle">Enter trade details to add to your portfolio</p>
-      </div>
+      <h2 className="section-heading">Add New Trade</h2>
+      <p className="trade-form-subtitle">Enter trade details to add to your portfolio</p>
 
-      {/* Form Content */}
-      <div className="trade-form-content">
-        {/* Top Row - Ticker & Trade Type */}
+      <form className="trade-form-content" onSubmit={handleSubmit}>
         <div className="trade-form-row">
           <div className="trade-form-field">
             <label className="trade-form-label">Ticker Symbol</label>
@@ -43,7 +31,6 @@ export default function TradeForm() {
           </div>
         </div>
 
-        {/* Middle Row - Quantity & Price */}
         <div className="trade-form-row">
           <div className="trade-form-field">
             <label className="trade-form-label">Quantity</label>
@@ -67,21 +54,16 @@ export default function TradeForm() {
           </div>
         </div>
 
-        {/* Trade Date */}
         <div className="trade-form-field-full">
           <label className="trade-form-label">Trade Date</label>
-          <input
-            type="date"
-            className="trade-form-input"
-          />
+          <input type="date" className="trade-form-input" />
         </div>
-      </div>
 
-      {/* Submit Button */}
-      <button className="trade-form-button">
-        <span className="trade-form-button-icon">+</span>
-        <span className="trade-form-button-text">Add Trade</span>
-      </button>
+        <button type="submit" className="trade-form-button">
+          <span className="trade-form-button-icon">+</span>
+          <span className="trade-form-button-text">Add Trade</span>
+        </button>
+      </form>
     </div>
   );
 }

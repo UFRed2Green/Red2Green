@@ -20,6 +20,13 @@ html {
     height: auto;
 }
 
+.section-heading {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 12px 0;
+}
+
 .left-column {
     flex: 2;    
     flex-direction: column;
@@ -55,13 +62,13 @@ html {
 }
 
 .stock-performance-container {
-    height: 45vh;
+    height: 60vh;
 }
 
 .add-new-trade-container {
-    height: 65vh;
+    height: 70vh;
 }
 
 .trade-history-container {
-    height: 45vh;
+    height: 70vh;
 }

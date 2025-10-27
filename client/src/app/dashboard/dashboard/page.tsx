@@ -1,6 +1,9 @@
+"use client";
+
 import '@/app/styles/dashboard/dashboard.css';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import TradeForm from './components/TradeForm';
+import TradeHistory from './components/TradeHistory';
 
 export default function DashboardPage() {
     return (
@@ -18,7 +21,7 @@ export default function DashboardPage() {
                         <TradeForm />
                     </div>
                     <div className='trade-history-container card-container'>
-                        Trade history / viewer
+                        <TradeHistory />
                     </div>
                 </div>
                 <div className='right-column'>
