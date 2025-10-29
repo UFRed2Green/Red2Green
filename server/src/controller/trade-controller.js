@@ -1,4 +1,4 @@
-import { addTrade, deleteTrade } from "../services/trade-service.js";
+import { addTrade, getTrades, deleteTrade } from "../services/trade-service.js";
 import { success, error } from "../utils/response.js";
 import { validateTradeInput } from "../utils/trade-validator.js";
 
@@ -20,6 +20,18 @@ export async function addTradeController(req, res) {
     } catch (err) {
         console.error(err);
         return error(res, "TRADE_ADD_FAILED", err.message, err.status || 500);
+    }
+}
+
+export async function getTradesController(req, res) {
+    try {
+        const userId = req.userId;
+
+        const result = await getTrades({ userId });
+        return success(res, result, "Trades retrieved successfully", 200);
+    } catch (err) {
+        console.error(err);
+        return error(res, "TRADE_GET_FAILED", err.message, err.status || 500);
     }
 }
 
