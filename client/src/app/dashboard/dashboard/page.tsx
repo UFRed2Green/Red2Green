@@ -1,11 +1,18 @@
 "use client";
 
+import { useState } from 'react';
 import '@/app/styles/dashboard/dashboard.css';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import TradeForm from './components/TradeForm';
 import TradeHistory from './components/TradeHistory';
 
 export default function DashboardPage() {
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+    const handleTradeAdded = () => {
+        setRefreshTrigger(prev => prev + 1);
+    };
+
     return (
         <ProtectedRoute>
             <main className='dashboard-container'>
@@ -18,10 +25,10 @@ export default function DashboardPage() {
                         Performance chart
                     </div>
                     <div className='add-new-trade-container card-container'>
-                        <TradeForm />
+                        <TradeForm onTradeAdded={handleTradeAdded} />
                     </div>
                     <div className='trade-history-container card-container'>
-                        <TradeHistory />
+                        <TradeHistory refreshTrigger={refreshTrigger} />
                     </div>
                 </div>
                 <div className='right-column'>
