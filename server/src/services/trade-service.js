@@ -21,6 +21,16 @@ export async function addTrade({
 
     return trade;
 }
+
+export async function getTrades({ userId }) {
+    const trades = await prisma.trade.findMany({
+        where: { userId },
+        orderBy: { tradeDate: "desc" },
+    });
+
+    return trades;
+}
+
 export async function deleteTrade({ tradeId, userId }) {
     const trade = await prisma.trade.findUnique({
         where: { tradeId },
