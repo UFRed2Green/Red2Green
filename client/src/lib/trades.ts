@@ -21,24 +21,26 @@ export interface AddTradeInput {
     tradeDate?: string;
 }
 
-export async function getTrades(token: string): Promise<Trade[]> {
-    console.log('getTrades called with token:', token ? 'Token exists' : 'No token');
-    console.log('API URL:', process.env.NEXT_PUBLIC_API_URL);
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/trades`, {
-        method: "GET",
+/**
+ * Shared API request utility to reduce code duplication
+ */
+async function apiRequest<T>(
+    url: string,
+    token: string,
+    options: { method: string; body?: string } = { method: 'GET' }
+): Promise<T> {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
+        method: options.method,
         headers: {
             "Content-Type": "application/json",
             "Authorization": token,
         },
+        ...(options.body && { body: options.body }),
     });
-
-    console.log('Response status:', res.status);
 
     if (!res.ok) {
         const errorData = await res.json();
-        console.log('Error data:', errorData);
-        throw new Error(errorData.error || errorData.message || `Failed to fetch trades: ${res.statusText}`);
+        throw new Error(errorData.error?.message || errorData.message || `Request failed: ${res.statusText}`);
     }
 
     const response = await res.json();
@@ -46,48 +48,20 @@ export async function getTrades(token: string): Promise<Trade[]> {
         return response.data;
     }
 
-    throw new Error(response.message || "Failed to fetch trades: Invalid response format");
+    throw new Error(response.message || "Invalid response format");
+}
+
+export async function getTrades(token: string): Promise<Trade[]> {
+    return apiRequest<Trade[]>('/api/trades', token);
 }
 
 export async function addTrade(token: string, tradeData: AddTradeInput): Promise<Trade> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/trades`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": token,
-        },
+    return apiRequest<Trade>('/api/trades', token, {
+        method: 'POST',
         body: JSON.stringify(tradeData),
     });
-
-    if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.error?.message || errorData.message || `Failed to add trade: ${res.statusText}`);
-    }
-
-    const response = await res.json();
-    if (response.success && response.data) {
-        return response.data;
-    }
-
-    throw new Error(response.message || "Failed to add trade: Invalid response format");
 }
 
 export async function deleteTrade(token: string, tradeId: string): Promise<void> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/trades/${tradeId}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": token,
-        },
-    });
-
-    if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.error?.message || errorData.message || `Failed to delete trade: ${res.statusText}`);
-    }
-
-    const response = await res.json();
-    if (!response.success) {
-        throw new Error(response.message || "Failed to delete trade");
-    }
+    await apiRequest<void>(`/api/trades/${tradeId}`, token, { method: 'DELETE' });
 }

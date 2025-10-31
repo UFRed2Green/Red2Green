@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { getTrades, deleteTrade, type Trade } from '@/lib/trades';
+import { formatTradeDate } from '@/utils/trades/date-formatting';
 import '@/app/styles/dashboard/trade-history.css';
 import { FiTrash2, FiEdit2 } from 'react-icons/fi';
 
@@ -16,7 +17,7 @@ export default function TradeHistory({ refreshTrigger }: TradeHistoryProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  const fetchTrades = async () => {
+  const fetchTrades = useCallback(async () => {
     if (!token) {
       setIsLoading(false);
       return;
@@ -32,12 +33,11 @@ export default function TradeHistory({ refreshTrigger }: TradeHistoryProps) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     fetchTrades();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, refreshTrigger]);
+  }, [fetchTrades, refreshTrigger]);
 
   const handleDelete = async (tradeId: string) => {
     if (!token) {
@@ -60,13 +60,6 @@ export default function TradeHistory({ refreshTrigger }: TradeHistoryProps) {
     } finally {
       setDeletingId(null);
     }
-  };
-
-  const formatDate = (dateString: string) => {
-    const datePart = dateString.split('T')[0];
-    const [year, month, day] = datePart.split('-');
-    const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
   };
 
   const formatCurrency = (value: number | string) => {
@@ -133,7 +126,7 @@ export default function TradeHistory({ refreshTrigger }: TradeHistoryProps) {
                   <td className="col-qty">{trade.quantity}</td>
                   <td className="col-price">{formatCurrency(priceNum)}</td>
                   <td className="col-total">{formatCurrency(total)}</td>
-                  <td className="col-date">{formatDate(trade.tradeDate)}</td>
+                  <td className="col-date">{formatTradeDate(trade.tradeDate)}</td>
                   <td className="col-action">
                     <button className="edit-button" title="Edit trade">
                       <FiEdit2 />
