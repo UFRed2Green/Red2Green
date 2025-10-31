@@ -63,7 +63,9 @@ export default function TradeHistory({ refreshTrigger }: TradeHistoryProps) {
   };
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
+    const datePart = dateString.split('T')[0];
+    const [year, month, day] = datePart.split('-');
+    const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
   };
 
