@@ -5,7 +5,7 @@ import { validateTradeInput } from "../utils/trade-validator.js";
 export async function addTradeController(req, res) {
     try {
         const userId = req.userId;
-        const tradeDate = req.tradeDate;
+        const tradeDate = new Date(req.body.tradeDate + 'T00:00:00Z').toISOString();
         const { normalizedTicker, normalizedType, quantityNum, priceNum } = validateTradeInput(req.body);
 
         const result = await addTrade({
