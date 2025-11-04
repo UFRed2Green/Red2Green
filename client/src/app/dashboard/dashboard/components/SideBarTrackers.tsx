@@ -2,9 +2,41 @@ import { TbPigMoney } from "react-icons/tb";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { LuTrendingUpDown } from "react-icons/lu";
 import { FaExchangeAlt } from "react-icons/fa";
+import { useCallback, useEffect, useState } from 'react';
+import { getTrades, type Trade } from '@/lib/trades';
+import { useAuth } from '@/context/AuthContext';
 import '@/app/styles/dashboard/side-bar-trackers.css';
 
-export function TotalInvested() {
+interface SideBarProps {
+  refreshTrigger?: boolean;
+}
+
+export function TotalInvested({ refreshTrigger }: SideBarProps) {
+    const { token } = useAuth();
+    const [total, setTotal] = useState(0);
+
+    const fetchTotal = useCallback(async () => {
+        if (!token) return;
+
+        try {
+            const data = await getTrades(token);
+            
+            let c = 0;
+            for (const trade of data) {
+                c += Number(trade.price) * trade.quantity;
+            }
+
+            setTotal(c);
+        } catch (error) {
+            console.error('Failed to fetch trades:', error);
+            alert(error instanceof Error ? error.message : 'Failed to fetch trades');
+        }
+    }, [token]);
+
+    useEffect(() => {
+        fetchTotal();
+    }, [fetchTotal, refreshTrigger]);
+
     return (
         <div className='total-invested-container'>
             <div className='invested-header-container'>
@@ -12,13 +44,13 @@ export function TotalInvested() {
                 <h1>Total Invested</h1>
             </div>
             <div className='invested-amount-container'>
-                <h1>123,456</h1>
+                <h1>{ total }</h1>
             </div>
         </div>
     );
 }
 
-export function TotalRevenue() {
+export function TotalRevenue({ refreshTrigger }: SideBarProps) {
     return (
         <div className='total-revenue-container'>
             <div className='revenue-header-container'>
@@ -32,7 +64,7 @@ export function TotalRevenue() {
     );
 }
 
-export function ProfitLoss() {
+export function ProfitLoss({ refreshTrigger }: SideBarProps) {
     return (
         <div className='realized-container'>
             <div className='realized-header-container'>
@@ -46,7 +78,26 @@ export function ProfitLoss() {
     );
 }
 
-export function TotalTrades() {
+export function TotalTrades({ refreshTrigger }: SideBarProps) {
+    const { token } = useAuth();
+    const [trades, setTrades] = useState(0);
+
+    const fetchTrades = useCallback(async () => {
+        if (!token) return;
+
+        try {
+            const data = await getTrades(token);
+            setTrades(data.length);
+        } catch (error) {
+            console.error('Failed to fetch trades:', error);
+            alert(error instanceof Error ? error.message : 'Failed to fetch trades');
+        }
+    }, [token]);
+
+    useEffect(() => {
+        fetchTrades();
+    }, [fetchTrades, refreshTrigger]);
+
     return (
         <div className='total-trades-container'>
             <div className='trades-header-container'>
@@ -54,7 +105,7 @@ export function TotalTrades() {
                 <h1>Total Trades</h1>
             </div>
             <div className='trades-amount-container'>
-                <h1>123,456</h1>
+                <h1>{ trades }</h1>
             </div>
         </div>
     );

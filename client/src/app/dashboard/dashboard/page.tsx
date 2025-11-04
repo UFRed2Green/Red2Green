@@ -8,10 +8,10 @@ import TradeForm from './components/TradeForm';
 import TradeHistory from './components/TradeHistory';
 
 export default function DashboardPage() {
-    const [refreshTrigger, setRefreshTrigger] = useState(0);
+    const [refreshTrigger, setRefreshTrigger] = useState(true);
 
     const handleTradeAdded = () => {
-        setRefreshTrigger(prev => prev + 1);
+        setRefreshTrigger(prev => !prev);
     };
 
     return (
@@ -34,16 +34,16 @@ export default function DashboardPage() {
                 </div>
                 <div className='right-column'>
                     <div className='total-invested-container card-container'>
-                        <TotalInvested />
+                        <TotalInvested refreshTrigger={refreshTrigger} />
                     </div>
                     <div className='total-revenue-container card-container'>
-                        <TotalRevenue />
+                        <TotalRevenue refreshTrigger={refreshTrigger} />
                     </div>
                     <div className='realized-pl-container card-container'>
-                        <ProfitLoss />
+                        <ProfitLoss refreshTrigger={refreshTrigger} />
                     </div>
                     <div className='total-trades-container card-container'>
-                        <TotalTrades />
+                        <TotalTrades refreshTrigger={refreshTrigger} />
                     </div>
                     <div className='risk-reward-container card-container'>
                         Risk Reward
