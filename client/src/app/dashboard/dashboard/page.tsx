@@ -1,23 +1,28 @@
-import '@/app/styles/dashboard/dashboard.css'
+"use client";
+
+import '@/app/styles/dashboard/dashboard.css';
+import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { TotalInvested, TotalRevenue, ProfitLoss } from '@/app/dashboard/sideBarTrackers';
+import TradeForm from './components/TradeForm';
+import TradeHistory from './components/TradeHistory';
 
 export default function DashboardPage() {
     return (
-        <html><body>
+        <ProtectedRoute>
             <main className='dashboard-container'>
-                {/* 
+                {/*
                     Do not remove / edit the containers just build inside them
-                    Feel free to make functions for your elements so theres not so much clutter here 
+                    Feel free to make functions for your elements so theres not so much clutter here
                 */}
                 <div className='left-column'>
                     <div className='stock-performance-container card-container'>
                         Performance chart
                     </div>
                     <div className='add-new-trade-container card-container'>
-                        Add new trade
+                        <TradeForm />
                     </div>
                     <div className='trade-history-container card-container'>
-                        Trade history / viewer
+                        <TradeHistory />
                     </div>
                 </div>
                 <div className='right-column'>
@@ -31,7 +36,7 @@ export default function DashboardPage() {
                         <ProfitLoss />
                     </div>
                     <div className='total-trades-container card-container'>
-                        Total trades 
+                        Total trades
                     </div>
                     <div className='risk-reward-container card-container'>
                         Risk Reward
@@ -41,6 +46,6 @@ export default function DashboardPage() {
                     </div>
                 </div>
             </main>
-        </body></html>
+        </ProtectedRoute>
     );
 }
