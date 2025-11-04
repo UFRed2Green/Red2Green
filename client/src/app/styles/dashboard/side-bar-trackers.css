@@ -8,7 +8,8 @@
 
 .invested-header-container,
 .revenue-header-container,
-.realized-header-container {
+.realized-header-container,
+.trades-header-container {
     display: flex;
     flex-direction: row;
     gap: 5px;
@@ -19,7 +20,8 @@
 
 .invested-header-container h1,
 .revenue-header-container h1,
-.realized-header-container h1 {
+.realized-header-container h1,
+.trades-header-container h1 {
     margin-left: 20px;
     font-size: 2rem;
     font-weight: bold;
@@ -27,7 +29,8 @@
 
 .invested-amount-container,
 .revenue-amount-container,
-.realized-amount-container {
+.realized-amount-container,
+.trades-amount-container {
     display: flex;
     flex-direction: row;
     align-items: center;

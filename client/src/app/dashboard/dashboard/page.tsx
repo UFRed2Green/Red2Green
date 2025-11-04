@@ -2,7 +2,7 @@
 
 import '@/app/styles/dashboard/dashboard.css';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
-import { TotalInvested, TotalRevenue, ProfitLoss } from '@/app/dashboard/dashboard/components/SideBarTrackers';
+import { TotalInvested, TotalRevenue, ProfitLoss, TotalTrades } from '@/app/dashboard/dashboard/components/SideBarTrackers';
 import TradeForm from './components/TradeForm';
 import TradeHistory from './components/TradeHistory';
 
@@ -36,7 +36,7 @@ export default function DashboardPage() {
                         <ProfitLoss />
                     </div>
                     <div className='total-trades-container card-container'>
-                        Total trades
+                        <TotalTrades />
                     </div>
                     <div className='risk-reward-container card-container'>
                         Risk Reward
