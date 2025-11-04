@@ -1,6 +1,7 @@
 import request from "supertest";
 import express from "express";
 import { jest } from "@jest/globals";
+import { createFakeTrade } from "../fakes/fake-trade.js";
 
 const prisma = {
   trade: {
@@ -48,6 +49,7 @@ describe("POST /api/trades (Integration)", () => {
         tradeType: "BUY",
         quantity: 10,
         price: 150,
+        tradeDate: "2025-10-31",
       });
 
     expect(res.status).toBe(201);
@@ -81,6 +83,7 @@ describe("POST /api/trades (Integration)", () => {
         tradeType: "SELL",
         quantity: 5,
         price: 300,
+        tradeDate: "2025-10-31",
       });
 
     expect(res.status).toBe(500);
@@ -91,8 +94,6 @@ describe("POST /api/trades (Integration)", () => {
 });
 
 // Delete trade tests
-import { createFakeTrade } from "../fakes/fake-trade.js";
-
 describe("DELETE /api/trades/:tradeId (Integration)", () => {
   const fakeTrade = createFakeTrade();
   const { tradeId } = fakeTrade;
