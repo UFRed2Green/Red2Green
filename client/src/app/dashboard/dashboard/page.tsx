@@ -2,7 +2,7 @@
 
 import '@/app/styles/dashboard/dashboard.css';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
-import { TotalInvested, TotalRevenue, ProfitLoss } from '@/app/dashboard/sideBarTrackers';
+import { TotalInvested, TotalRevenue, ProfitLoss } from '@/app/dashboard/dashboard/components/SideBarTrackers';
 import TradeForm from './components/TradeForm';
 import TradeHistory from './components/TradeHistory';
 
