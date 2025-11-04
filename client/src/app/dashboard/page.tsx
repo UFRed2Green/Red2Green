@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import '@/app/styles/dashboard/dashboard.css'
+import { TotalInvested, TotalRevenue, ProfitLoss } from '@/app/dashboard/sideBarTrackers';
 
 export default function DashboardPage() {
     return (
@@ -22,13 +22,13 @@ export default function DashboardPage() {
                 </div>
                 <div className='right-column'>
                     <div className='total-invested-container card-container'>
-                        Total invested
+                        <TotalInvested />
                     </div>
                     <div className='total-revenue-container card-container'>
-                        Total revenue
+                        <TotalRevenue />
                     </div>
                     <div className='realized-pl-container card-container'>
-                        Realized P&L
+                        <ProfitLoss />
                     </div>
                     <div className='total-trades-container card-container'>
                         Total trades 
