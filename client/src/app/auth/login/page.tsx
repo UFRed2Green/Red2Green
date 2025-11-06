@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { AiOutlineStock } from 'react-icons/ai';
 import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
 import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/components/Toast';
 
 export default function LoginPage() {
   return (
@@ -45,6 +46,7 @@ function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
+  const { showToast } = useToast();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -53,7 +55,10 @@ function LoginForm() {
 
     try {
       await login(email, password);
+      showToast('success', 'Login successful');
       router.replace('/dashboard/dashboard');
+    } catch (err: any) {
+      showToast('error', err.message);
     } finally {
       setIsLoading(false);
     }
