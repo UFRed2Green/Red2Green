@@ -8,7 +8,8 @@ export async function sendCode(email: string) {
     });
 
     if (!res.ok) {
-        throw new Error(`Code failed to send: ${res.statusText}`);
+        const errorData = await res.json();
+        throw new Error(errorData.error?.message || errorData.message || `Code failed to send: ${res.statusText}`);
     }
 
     return res.json();
@@ -22,7 +23,8 @@ export async function changePass(email: string, code: string, newPassword: strin
     });
 
     if (!res.ok) {
-        throw new Error(`Failed to change password: ${res.statusText}`);
+        const errorData = await res.json();
+        throw new Error(errorData.error?.message || errorData.message || `Failed to change password: ${res.statusText}`);
     }
 
     return res.json();
