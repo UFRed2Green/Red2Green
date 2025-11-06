@@ -99,9 +99,6 @@ export default function ForgotPasswordPage() {
                     <button type='submit' className='enter-button'>{fullyVisible ? 'Change Password' : 'Send Code'}</button>
                 </form>
                 { fullyVisible && <button className='bottom-button' onClick={handleResend}>Resend Code</button>}
-                <button className='bottom-button' onClick={() => {
-                    router.push('/auth/login');
-                }}>Back to Login</button>
                 <div style={{margin: '20px'}}></div>
             </div>
             <div className='red-to-green-container'>
