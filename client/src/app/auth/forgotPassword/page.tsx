@@ -39,7 +39,7 @@ export default function ForgotPasswordPage() {
                 if (data.success) {
                     showToast('success', data.message);
                     setTimeout(() => {
-                        router.push('/auth/forgotPassword/back');
+                        router.push('/auth/login');
                     }, 1500);
                 }
 
