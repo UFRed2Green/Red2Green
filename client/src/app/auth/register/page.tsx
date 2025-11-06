@@ -6,6 +6,7 @@ import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import { AiOutlineStock } from "react-icons/ai";
 import { useState } from 'react';
 import { register } from '@/lib/register';
+import { useToast } from '@/components/Toast';
 
 export default function RegisterPage() {
     return (
@@ -40,19 +41,28 @@ function HeroSection() {
 
 function RegisterForm() {
     const router = useRouter();
+    const { showToast } = useToast();
 
     const [showPassword, setShowPassword] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     async function handleRegister(e: React.FormEvent) {
         e.preventDefault();
+        setIsLoading(true);
         try {
             const data = await register(firstName, lastName, email, password);
+            showToast('success', data.message);
+            setTimeout(() => {
+                router.push('/auth/login');
+            }, 1500);
         } catch (err: any) {
-            console.error("Register failed:", err.message);
+            showToast('error', err.message);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -86,7 +96,9 @@ function RegisterForm() {
                         </button>
                     )}
                 </div>
-                <button className='auth-button register-button' type="submit">Sign Up</button>
+                <button className='auth-button register-button' type="submit" disabled={isLoading}>
+                    {isLoading ? 'Creating account...' : 'Sign Up'}
+                </button>
             </form>
         </div>
     );
