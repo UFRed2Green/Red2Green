@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 import '@/app/styles/globals.css';
 import { AuthProvider } from '@/context/AuthContext';
+import { ToastProvider } from '@/context/ToastContext';
+import { Toast } from '@/components/Toast';
 import NavBar from '@/components/NavBar';
 
 export const metadata = {
@@ -16,10 +18,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AuthProvider>
-          <NavBar />
-          {children}
-        </AuthProvider>
+        <ToastProvider>
+          <AuthProvider>
+            <NavBar />
+            {children}
+          </AuthProvider>
+          <Toast />
+        </ToastProvider>
       </body>
     </html>
   );
