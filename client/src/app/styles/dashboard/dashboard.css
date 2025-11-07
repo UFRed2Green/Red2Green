@@ -65,10 +65,10 @@ html {
     height: 60vh;
 }
 
-.add-new-trade-container {
+.trade-history-container {
     height: 70vh;
 }
 
-.trade-history-container {
-    height: 70vh;
+.realized-pl-container {
+    background-color: #effcff;
 }
