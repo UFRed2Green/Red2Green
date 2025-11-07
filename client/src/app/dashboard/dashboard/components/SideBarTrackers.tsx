@@ -80,14 +80,34 @@ export function ProfitLoss({ refreshTrigger }: SideBarProps) {
 
 export function TotalTrades({ refreshTrigger }: SideBarProps) {
     const { token } = useAuth();
-    const [trades, setTrades] = useState(0);
+    const [shares, setShares] = useState(0);
 
     const fetchTrades = useCallback(async () => {
         if (!token) return;
 
         try {
             const data = await getTrades(token);
-            setTrades(data.length);
+            const map: Record<string, number> = {};
+            
+            for (const trade of data) {
+                if (!map[trade.ticker]) {
+                    map[trade.ticker] = 0;
+                }
+
+                if (trade.tradeType == "SELL") {
+                    map[trade.ticker] -= Math.max(trade.quantity, 0);
+
+                } else {
+                    map[trade.ticker] += trade.quantity;
+                } 
+            }
+
+            let total = 0;
+            for (const ticker in map) {
+                total += map[ticker];
+            }
+            
+            setShares(total);
         } catch (error) {
             console.error('Failed to fetch trades:', error);
             alert(error instanceof Error ? error.message : 'Failed to fetch trades');
@@ -102,10 +122,10 @@ export function TotalTrades({ refreshTrigger }: SideBarProps) {
         <div className='total-trades-container'>
             <div className='trades-header-container'>
                 < FaExchangeAlt size={40}/>
-                <h1>Total Trades</h1>
+                <h1>Total Shares</h1>
             </div>
             <div className='trades-amount-container'>
-                <h1>{ trades }</h1>
+                <h1>{ shares }</h1>
             </div>
         </div>
     );
