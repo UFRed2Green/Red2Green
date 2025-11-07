@@ -5,9 +5,11 @@ export async function register(firstName: string, lastName: string, email: strin
         body: JSON.stringify({ firstName, lastName, email, password }),
     });
 
+    const data = await res.json();
+
     if (!res.ok) {
-        throw new Error(`Register failed: ${res.statusText}`);
+        throw new Error(data.error?.message);
     }
 
-    return res.json();
+    return data;
 }
