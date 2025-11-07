@@ -64,29 +64,29 @@ export default function ForgotPasswordPage() {
     return (
         <main>
             <div className='forgot-password-container'>
-                <h1>Reset your password</h1>
-                <form className='forgot-password-form' onSubmit={handleSubmit}>
+                <h1 className='form-header'>Reset your password</h1>
+                <form className='form' onSubmit={handleSubmit}>
                     <h3>Email</h3>
-                    <input type='email' placeholder='user@email.com' onChange={(e) => setEmail(e.target.value)} required></input>
+                    <input type='email' placeholder='user@email.com' className='input' onChange={(e) => setEmail(e.target.value)} required></input>
 
                     { fullyVisible &&
                         <>
                             <h3>Code</h3>
-                            <input type='text' placeholder='123456' onChange={(e) => setCode(e.target.value)} required></input>
+                            <input type='text' placeholder='123456' className='input' onChange={(e) => setCode(e.target.value)} required></input>
                             <h3>New Password</h3>
                             <div className='password-container'>
                                 <input
                                     type={showPassword ? 'text' : 'password'}
                                     value={newPassword}
                                     onChange={(e) => setNewPassword(e.target.value)}
-                                    className='password-input'
+                                    className='password-input input'
                                     placeholder='••••••••••'
                                     required
                                 />
                                 {newPassword.length > 0 && (
                                     <button
                                         type='button'
-                                        className='hide-password-icon'
+                                        className='password-toggle'
                                         onClick={() => setShowPassword(!showPassword)}
                                     >
                                         {showPassword ? <RiEyeOffFill /> : <RiEyeFill />}
@@ -96,15 +96,9 @@ export default function ForgotPasswordPage() {
                         </>
                     }
 
-                    <button type='submit' className='enter-button'>{fullyVisible ? 'Change Password' : 'Send Code'}</button>
+                    <button type='submit' className='btn-primary'>{fullyVisible ? 'Change Password' : 'Send Code'}</button>
+                    { fullyVisible && <button type='button' className='btn-primary' onClick={handleResend}>Resend Code</button>}
                 </form>
-                { fullyVisible && <button className='bottom-button' onClick={handleResend}>Resend Code</button>}
-                <div style={{margin: '20px'}}></div>
-            </div>
-            <div className='red-to-green-container'>
-                <span className='red-text'>Red</span>
-                <span className='two-text'>2</span>
-                <span className='green-text'>Green</span>
             </div>
         </main>
     );
