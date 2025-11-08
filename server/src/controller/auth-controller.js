@@ -1,4 +1,4 @@
-import { registerUser, loginUser } from "../services/auth-service.js";
+import { registerUser, loginUser, changeUserPassword } from "../services/auth-service.js";
 import { success, error } from "../utils/response.js";
 
 export async function registerController(req, res) {
@@ -18,5 +18,21 @@ export async function loginController(req, res) {
     } catch (err) {
         console.error(err);
         return error(res, "LOGIN_FAILED", err.message, err.status || 500);
+    }
+}
+
+export async function changePasswordController(req, res) {
+    try {
+        const { currentPassword, newPassword } = req.body;
+        const userId = req.userId;
+        const result = await changeUserPassword({
+            userId,
+            currentPassword,
+            newPassword,
+        });
+        return success(res, result, "Password changed successfully", 200);
+    } catch (err) {
+        console.error(err);
+        return error(res, "PASSWORD_CHANGE_FAILED", err.message, err.status || 500);
     }
 }

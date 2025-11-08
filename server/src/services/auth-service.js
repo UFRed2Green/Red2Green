@@ -46,3 +46,29 @@ export async function loginUser({ email, password }) {
     });
     return { token, user: { id: user.id, email: user.email } };
 }
+
+export async function changeUserPassword({ userId, currentPassword, newPassword }) {
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+
+    const isPasswordValid = bcrypt.compareSync(currentPassword, user.password);
+    if (!isPasswordValid) {
+        const err = new Error("Current password is incorrect");
+        err.status = 401;
+        throw err;
+    }
+
+    const isSamePassword = bcrypt.compareSync(newPassword, user.password);
+    if (isSamePassword) {
+        const err = new Error("New password cannot be the same as current password");
+        err.status = 400;
+        throw err;
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await prisma.user.update({
+        where: { id: userId },
+        data: { password: hashedPassword },
+    });
+
+    return { message: "Password changed successfully" };
+}
