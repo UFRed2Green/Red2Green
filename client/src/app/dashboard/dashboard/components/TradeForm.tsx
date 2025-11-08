@@ -60,21 +60,15 @@ export default function TradeForm({ onTradeAdded }: TradeFormProps) {
     if (formData.tradeType == 'SELL') {
       try {
         const data = await getTrades(token);
-        const map: Record<string, number> = {};
+        let shareTotal = 0;
 
         for (const trade of data) {
-          if (!map[trade.ticker]) {
-            map[trade.ticker] = 0;
-          }
-
-          if (trade.tradeType == "SELL") {
-            map[trade.ticker] -= Math.max(trade.quantity, 0);
-          } else {
-            map[trade.ticker] += trade.quantity;
+          if (trade.ticker == formData.ticker && trade.price == formData.price) {
+            shareTotal += trade.quantity;
           }
         }
 
-        if (!map[formData.ticker] || map[formData.ticker] < parseInt(formData.quantity)) {
+        if (shareTotal < parseInt(formData.quantity)) {
           showToast('error', 'You don\'t have the necessary shares to sell');
           return;
         }
