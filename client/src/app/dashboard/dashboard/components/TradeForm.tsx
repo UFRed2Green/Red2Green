@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { addTrade } from '@/lib/trades';
+import { useToast } from '@/components/Toast';
+import { getTrades, type Trade } from '@/lib/trades';
 import '@/app/styles/dashboard/trade-form.css';
 
 interface TradeFormProps {
@@ -23,6 +25,7 @@ export default function TradeForm({ onTradeAdded }: TradeFormProps) {
   const { token } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState(getInitialFormState());
+  const { showToast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -36,13 +39,54 @@ export default function TradeForm({ onTradeAdded }: TradeFormProps) {
     e.preventDefault();
     
     if (!token) {
-      alert('You must be logged in to add a trade');
+      showToast('error', 'You must be logged in to add a trade');
       return;
     }
 
-    if (!formData.ticker.trim() || !formData.quantity || !formData.price) {
-      alert('Please fill in all fields');
+    if (!formData.ticker.trim() || !formData.quantity || !formData.price) { 
+      showToast('error', 'Please fill in all fields');
       return;
+    }
+
+    const tradeDate = new Date(formData.tradeDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (tradeDate > today) {
+      showToast('error', 'Please enter either today\'s date or earlier');
+      return;
+    }
+
+    if (formData.tradeType == 'SELL') {
+      console.log("Sell check");
+      try {
+        const data = await getTrades(token);
+        const map: Record<string, number> = {};
+        
+        for (const trade of data) {
+          if (!map[trade.ticker]) {
+            map[trade.ticker] = 0;
+          }
+
+          if (trade.tradeType == "SELL") {
+            map[trade.ticker] -= Math.max(trade.quantity, 0);
+          } else {
+            map[trade.ticker] += trade.quantity;
+          } 
+        }
+
+        if (!map[formData.ticker] || map[formData.ticker] < parseInt(formData.quantity)) {
+          showToast('error', 'You don\'t have the necessary shares to sell');
+          return;
+        }
+
+      } catch (error) {
+        console.error('Failed to fetch trades:', error);
+        if (error instanceof Error) {
+          showToast('error', error.message);
+        } else {
+          showToast('error', String(error));
+        }
+      }
     }
 
     setIsSubmitting(true);
@@ -62,8 +106,13 @@ export default function TradeForm({ onTradeAdded }: TradeFormProps) {
       onTradeAdded?.();
     } catch (error) {
       console.error('Failed to add trade:', error);
-      alert(error instanceof Error ? error.message : 'Failed to add trade');
+      if (error instanceof Error) {
+        showToast('error', error.message);
+      } else {
+        showToast('error', String(error));
+      }
     } finally {
+      showToast('success', 'Successfully added trade');
       setIsSubmitting(false);
     }
   };
