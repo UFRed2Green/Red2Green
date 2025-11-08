@@ -1,15 +1,14 @@
+'use client';
+
+import '@/app/styles/settings.css';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
+import ChangePasswordForm from './components/ChangePasswordForm';
 
 export default function SettingsPage() {
   return (
     <ProtectedRoute>
-      <main className="settings-container">
-        <div className="settings-header">
-          <h1>Settings</h1>
-        </div>
-        <div className="settings-content">
-          <p>Your settings will appear here</p>
-        </div>
+      <main className="settings-main">
+        <ChangePasswordForm />
       </main>
     </ProtectedRoute>
   );

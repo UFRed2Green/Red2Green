@@ -101,7 +101,7 @@ h3 {
     background-color: var(--color-primary);
     color: var(--color-text-white);
     padding: 16px 0px;
-    font-size: 1.25rem;
+    font-size: 1rem;
     box-shadow: var(--shadow-button);
     border-radius: var(--radius-lg);
 }

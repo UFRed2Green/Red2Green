@@ -1,0 +1,31 @@
+@import 'tailwindcss';
+
+.settings-main {
+  min-height: 100vh;
+  background-color: var(--color-bg-main);
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 5vh;
+}
+
+.settings-main h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text-primary);
+}
+
+.change-password-container {
+  background-color: var(--color-text-white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.change-password-container .section-heading {
+  margin-bottom: var(--spacing-xl);
+}
