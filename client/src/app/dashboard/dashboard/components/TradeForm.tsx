@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { addTrade } from '@/lib/trades';
 import { useToast } from '@/components/Toast';
@@ -26,6 +26,7 @@ export default function TradeForm({ onTradeAdded }: TradeFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState(getInitialFormState());
   const { showToast } = useToast();
+  const [priceOptions, setPriceOptions] = useState<any[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -37,13 +38,13 @@ export default function TradeForm({ onTradeAdded }: TradeFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!token) {
       showToast('error', 'You must be logged in to add a trade');
       return;
     }
 
-    if (!formData.ticker.trim() || !formData.quantity || !formData.price) { 
+    if (!formData.ticker.trim() || !formData.quantity || !formData.price) {
       showToast('error', 'Please fill in all fields');
       return;
     }
@@ -57,11 +58,10 @@ export default function TradeForm({ onTradeAdded }: TradeFormProps) {
     }
 
     if (formData.tradeType == 'SELL') {
-      console.log("Sell check");
       try {
         const data = await getTrades(token);
         const map: Record<string, number> = {};
-        
+
         for (const trade of data) {
           if (!map[trade.ticker]) {
             map[trade.ticker] = 0;
@@ -71,7 +71,7 @@ export default function TradeForm({ onTradeAdded }: TradeFormProps) {
             map[trade.ticker] -= Math.max(trade.quantity, 0);
           } else {
             map[trade.ticker] += trade.quantity;
-          } 
+          }
         }
 
         if (!map[formData.ticker] || map[formData.ticker] < parseInt(formData.quantity)) {
@@ -116,6 +116,47 @@ export default function TradeForm({ onTradeAdded }: TradeFormProps) {
       setIsSubmitting(false);
     }
   };
+
+  useEffect(() => {
+    const getPrices = async () => {
+    if (!token) {
+      return;
+    }
+    if (formData.ticker == '') {
+      setPriceOptions([]);
+      return;
+    }
+
+    const prices = new Set<string>();
+
+    try {
+      const data = await getTrades(token);
+
+      for (const trade of data) {
+        if (trade.ticker == formData.ticker) {
+          prices.add(trade.price);
+        }
+      }
+
+      setPriceOptions(
+        Array.from(prices).map((price, i) => (
+          <option key={i} value={price}>
+            {price}
+          </option>
+        ))
+      );
+    } catch (error) {
+      console.error('Failed to fetch trades:', error);
+      if (error instanceof Error) {
+        showToast('error', error.message);
+      } else {
+        showToast('error', String(error));
+      }
+    }
+  };
+
+    getPrices();
+  }, [token, formData.ticker]);
 
   return (
     <div className="trade-form-container">
@@ -171,18 +212,34 @@ export default function TradeForm({ onTradeAdded }: TradeFormProps) {
 
           <div className="trade-form-field">
             <label className="trade-form-label">Price per Share</label>
-            <input
-              type="number"
-              name="price"
-              className="trade-form-input"
-              placeholder="150.00"
-              min={0.01}
-              step="0.01"
-              value={formData.price}
-              onChange={handleChange}
-              disabled={isSubmitting}
-              required
-            />
+            {formData.tradeType == 'BUY' ? (
+              <input
+                type="number"
+                name="price"
+                className="trade-form-input"
+                placeholder="150.00"
+                min={0.01}
+                step="0.01"
+                value={formData.price}
+                onChange={handleChange}
+                disabled={isSubmitting}
+                required
+              />
+            ) : (
+              <select
+                name="price"
+                className="trade-form-select"
+                value={formData.price}
+                onChange={handleChange}
+                disabled={isSubmitting}
+                required
+              >
+                <option value="">Select a price</option>
+                {priceOptions}
+              </select>
+            )}
+            
+            
           </div>
         </div>
 
