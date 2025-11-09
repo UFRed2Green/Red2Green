@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
+import { changePassword } from '@/lib/change-password';
+import { useToast } from '@/components/Toast';
+import { useAuth } from '@/context/AuthContext';
 
 export default function ChangePasswordForm() {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -10,10 +13,27 @@ export default function ChangePasswordForm() {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { showToast } = useToast();
+  const { user } = useAuth();
 
-  const handlePasswordChange = (e: React.FormEvent) => {
+  const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Add backend integration for password change
+    setIsLoading(true);
+    try {
+      const data = await changePassword(user?.email || '', currentPassword, newPassword, confirmPassword);
+      showToast('success', data.message);
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+      setShowCurrentPassword(false);
+      setShowNewPassword(false);
+      setShowConfirmPassword(false);
+    } catch (err: any) {
+        showToast('error', err.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -83,8 +103,8 @@ export default function ChangePasswordForm() {
           )}
         </div>
 
-        <button type="submit" className="btn-primary">
-          Update Password
+        <button type="submit" className="btn-primary" disabled={isLoading}>
+          {isLoading ? 'Updating...' : 'Update Password'}
         </button>
       </form>
     </div>

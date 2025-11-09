@@ -23,12 +23,12 @@ export async function loginController(req, res) {
 
 export async function changePasswordController(req, res) {
     try {
-        const { currentPassword, newPassword } = req.body;
-        const userId = req.userId;
+        const { email, currentPassword, newPassword, confirmPassword } = req.body;
         const result = await changeUserPassword({
-            userId,
+            email,
             currentPassword,
             newPassword,
+            confirmPassword,
         });
         return success(res, result, "Password changed successfully", 200);
     } catch (err) {
