@@ -55,8 +55,6 @@ export function getWeeklyStockPrices(dailyData) {
             price: parseFloat(avgPrice.toFixed(2))
         };
     });
-
-    // Sort by date descending (newest first, matching API format)
     return weeklyData.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
@@ -73,34 +71,29 @@ export function getMonthlyStockPrices(dailyData) {
 
     dailyData.forEach(item => {
         const date = new Date(item.date);
-
-        // Get year-month as key (YYYY-MM)
         const yearMonth = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
 
-        // Use first day of month as the date
-        const monthKey = `${yearMonth}-01`;
-
-        if (!monthlyGroups[monthKey]) {
-            monthlyGroups[monthKey] = {
+        if (!monthlyGroups[yearMonth]) {
+            monthlyGroups[yearMonth] = {
                 prices: [],
                 dates: []
             };
         }
 
-        monthlyGroups[monthKey].prices.push(item.price);
-        monthlyGroups[monthKey].dates.push(item.date);
+        monthlyGroups[yearMonth].prices.push(item.price);
+        monthlyGroups[yearMonth].dates.push(item.date);
     });
 
-    // Calculate monthly averages
-    const monthlyData = Object.keys(monthlyGroups).map(monthKey => {
-        const group = monthlyGroups[monthKey];
+    // Calculate monthly averages using first trading day of each month
+    const monthlyData = Object.keys(monthlyGroups).map(yearMonth => {
+        const group = monthlyGroups[yearMonth];
         const avgPrice = group.prices.reduce((sum, price) => sum + price, 0) / group.prices.length;
+        const firstTradingDay = group.dates.sort()[0];
 
         return {
-            date: monthKey,
+            date: firstTradingDay,
             price: parseFloat(avgPrice.toFixed(2))
         };
     });
-
     return monthlyData.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
