@@ -5,6 +5,7 @@ import { Line } from "react-chartjs-2";
 import { getTrades, type Trade } from '@/lib/trades';
 import { useAuth } from '@/context/AuthContext';
 import { useCallback, useEffect, useState } from 'react';
+import '@/app/styles/dashboard/dashboard.css';
 
 interface SideBarProps {
     refreshTrigger?: boolean;
@@ -33,6 +34,7 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
             },
         ],
     });
+    const [chartMode, setChartMode] = useState("Total");
 
     function getRandomColor(opacity = 1): string {
         const r = Math.floor(Math.random() * 256);
@@ -52,6 +54,8 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
                 labels.push(`Day ${i}`);
             }
 
+            labels[29] = "Today";
+
             const today = new Date();
             const day30 = new Date();
             day30.setDate(today.getDate() - 29);
@@ -61,7 +65,7 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
             for (const trade of data) {
                 const tradeDate = new Date(trade.tradeDate);
                 const date = tradeDate < day30 ? day30.toDateString() : tradeDate.toDateString();
-                const value = Number(trade.price) * trade.quantity * (trade.tradeType === "BUY" ? 1 : -1);
+                const value = trade.quantity * (trade.tradeType === "BUY" ? 1 : -1);
 
                 if (!map.has(trade.ticker)) {
                     map.set(trade.ticker, new Map());
@@ -97,7 +101,6 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
                     data: tickerData,
                     borderColor: color,
                     backgroundColor: color,
-                    // tension: 0.1,
                     pointRadius: 0
                 });
             }
@@ -119,14 +122,18 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
 
     useEffect(() => {
         const data = fetchTrades();
-    }, [fetchTrades, refreshTrigger]);
+    }, [fetchTrades, refreshTrigger, chartMode]);
 
 
     const options = {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
             legend: { position: "top" },
             title: { display: true, text: "Performance" },
+        },
+        layout: {
+            padding: 10,
         },
         elements: {
             line: {
@@ -138,7 +145,13 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
     };
 
     return (
-        <div>
+        <div style={{ width: "100%", height: "100%" }}>
+            <button
+                onClick={() =>
+                    chartMode === "Total" ? setChartMode("Individual") : setChartMode("Total")
+                }
+                className="performance-chart-button"
+            >{chartMode === "Total" ? "Individual" : "Total"}</button>
             <Line data={chartData} options={options} />
         </div>
     );
