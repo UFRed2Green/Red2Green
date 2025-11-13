@@ -68,35 +68,35 @@ function RegisterForm() {
 
     return (
         <div className='auth-form-container'>
-            <h1 className='auth-form-header'>Create an account</h1>
-            <form className='auth-form' onSubmit={handleRegister}>
+            <h1 className='form-header'>Create an account</h1>
+            <form className='form' onSubmit={handleRegister}>
                 <h3>First Name</h3>
-                <input type='first-name' placeholder='Red' onChange={e => setFirstName(e.target.value)}/>
+                <input type='first-name' placeholder='Red' className='input' onChange={e => setFirstName(e.target.value)}/>
                 <h3>Last Name</h3>
-                <input type='last-name' placeholder='Green' onChange={e => setLastName(e.target.value)}/>
+                <input type='last-name' placeholder='Green' className='input' onChange={e => setLastName(e.target.value)}/>
                 <h3>Email</h3>
-                <input type='email' placeholder='user@email.com' onChange={e => setEmail(e.target.value)}/>
+                <input type='email' placeholder='user@email.com' className='input' onChange={e => setEmail(e.target.value)}/>
                 <h3>Password</h3>
                 <div className='password-container'>
                     <input
                         type={showPassword ? 'text' : 'password'}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className='password-input'
+                        className='password-input input'
                         placeholder='••••••••••'
                     />
 
                     {password.length > 0 && (
                         <button
                             type='button'
-                            className='hide-password-icon'
+                            className='password-toggle'
                             onClick={() => setShowPassword(!showPassword)}
                         >
                             {showPassword ? <RiEyeOffFill /> : <RiEyeFill />}
                         </button>
                     )}
                 </div>
-                <button className='auth-button register-button' type="submit" disabled={isLoading}>
+                <button type="submit" className='btn-primary' disabled={isLoading}>
                     {isLoading ? 'Creating account...' : 'Sign Up'}
                 </button>
             </form>
