@@ -6,6 +6,7 @@ import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { TotalInvested, TotalRevenue, ProfitLoss, TotalTrades } from '@/app/dashboard/dashboard/components/SideBarTrackers';
 import TradeForm from './components/TradeForm';
 import TradeHistory from './components/TradeHistory';
+import { PerformanceChart } from './components/PerformanceChart';
 
 export default function DashboardPage() {
     const [refreshTrigger, setRefreshTrigger] = useState(true);
@@ -23,7 +24,7 @@ export default function DashboardPage() {
                 */}
                 <div className='left-column'>
                     <div className='stock-performance-container card-container'>
-                        Performance chart
+                        <PerformanceChart refreshTrigger={refreshTrigger} />
                     </div>
                     <div className='add-new-trade-container card-container'>
                         <TradeForm onTradeAdded={handleTradeAdded} />
