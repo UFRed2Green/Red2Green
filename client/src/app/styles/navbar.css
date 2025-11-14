@@ -53,12 +53,11 @@ body {
     font-weight: 600;
     transition: color 0.2s, border-bottom-color 0.2s;
     border-bottom: 3px solid transparent;
-    padding-bottom: 7px;
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 15px;
-    height: 24px;
+    padding: 7px 0;
   }
 
   .topbar .nav-icon {
