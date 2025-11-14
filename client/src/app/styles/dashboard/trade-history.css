@@ -176,3 +176,57 @@
   background-color: #fee2e2;
   color: #991b1b;
 }
+
+@media (max-width: 768px) {
+  .trade-history-table {
+    font-size: 12px;
+  }
+
+  .trade-history-table th,
+  .trade-history-table td {
+    padding: 8px 6px;
+  }
+
+  /* Hide Price and Qty columns on mobile to save space */
+  .trade-history-table .col-price,
+  .trade-history-table .col-qty {
+    display: none;
+  }
+
+  .trade-history-table .col-ticker {
+    min-width: 55px;
+    width: 20%;
+  }
+
+  .trade-history-table .col-type {
+    min-width: 55px;
+    width: 20%;
+  }
+
+  .trade-history-table .col-total {
+    min-width: 70px;
+    width: 25%;
+  }
+
+  .trade-history-table .col-date {
+    min-width: 70px;
+    width: 23%;
+  }
+
+  .trade-history-table .col-action {
+    min-width: 70px;
+    width: 22%;
+    gap: 2px;
+  }
+
+  .trade-type-badge {
+    padding: 3px 6px;
+    font-size: 10px;
+  }
+
+  .edit-button,
+  .delete-button {
+    font-size: 16px;
+    padding: 4px 6px;
+  }
+}
