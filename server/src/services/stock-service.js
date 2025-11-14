@@ -21,7 +21,6 @@ async function fetchStockPrices(ticker) {
             `${process.env.FMP_BASE_URL}/historical-price-eod/light?symbol=${ticker}&apikey=${process.env.FPM_API_KEY}`
         );
         // console.log("API Response:", JSON.stringify(response.data, null, 2));
-        console.log("API called");
         return response.data;
     } catch (error) {
         throw new Error(`Failed to fetch stock price: ${error.message}`);
