@@ -6,6 +6,7 @@ import { getTrades, type Trade } from '@/lib/trades';
 import { useAuth } from '@/context/AuthContext';
 import { useCallback, useEffect, useState } from 'react';
 import '@/app/styles/dashboard/dashboard.css';
+import { getStockPrices } from "@/lib/stocks";
 
 interface SideBarProps {
     refreshTrigger?: boolean;
@@ -34,7 +35,7 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
             },
         ],
     });
-    const [chartMode, setChartMode] = useState("Total");
+    const [totalMode, setTotalMode] = useState(true);
 
     function getRandomColor(opacity = 1): string {
         const r = Math.floor(Math.random() * 256);
@@ -46,6 +47,9 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
     const fetchTrades = useCallback(async () => {
         if (!token) return;
 
+        // const stockData = await getStockPrices(token, "AAPL", "D");
+        // console.log(stockData);
+
         try {
             const data = await getTrades(token);
 
@@ -54,58 +58,98 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
                 labels.push(`Day ${i}`);
             }
 
-            labels[29] = "Today";
+            labels[29] = "Current";
 
             const today = new Date();
+            today.setDate(today.getDate() - 1);
             const day30 = new Date();
-            day30.setDate(today.getDate() - 29);
+            day30.setDate(today.getDate() - 30);
 
             const map = new Map<String, Map<String, number>>();
 
             for (const trade of data) {
                 const tradeDate = new Date(trade.tradeDate);
-                const date = tradeDate < day30 ? day30.toDateString() : tradeDate.toDateString();
+                let date = tradeDate < day30 ? day30.toDateString() : tradeDate.toDateString();
+                if (tradeDate > today) {
+                    date = tradeDate.toDateString();
+                }
                 const value = trade.quantity * (trade.tradeType === "BUY" ? 1 : -1);
 
                 if (!map.has(trade.ticker)) {
                     map.set(trade.ticker, new Map());
                 }
 
-                let current = 0;
-                if (map.get(trade.ticker)!.has(date)) {
-                    current = map.get(trade.ticker)!.get(date)!;
-                }
-                map.get(trade.ticker)?.set(date, current + value);
+                map.get(trade.ticker)?.set(date, value);
             }
 
             const datasets = [];
-            for (const ticker of map) {
-                const tickerData: number[] = [];
-                for (let i = 29; i > -1; i--) {
-                    const date = new Date();
-                    date.setDate(today.getDate() - i);
-                    if (ticker[1].has(date.toDateString())) {
-                        tickerData.push(Number(ticker[1].get(date.toDateString())));
-                    } else if (i == 29) {
-                        tickerData.push(0);
-                    } else {
-                        tickerData.push(tickerData[tickerData.length - 1]);
+            console.log(totalMode);
+            if (totalMode) {
+                for (const ticker of map) {
+                    const tickerData: number[] = [];
+                    let total = 0;
+                    const stockData = await getStockPrices(token, String(ticker[0]), "D");
+                    let prevTotal = 0;
+                    for (let i = 29; i > -1; i--) {
+                        const date = new Date();
+                        date.setDate(today.getDate() - i);
+
+                        if (ticker[1].has(date.toDateString())) {
+                            total += Number(ticker[1].get(date.toDateString()));
+                            prevTotal = total;
+                            tickerData.push(total * stockData[-i + 29].price);
+                        } else if (i == 29) {
+                            tickerData.push(0);
+                        } else {
+                            tickerData.push(prevTotal * stockData[-i + 29].price);
+                        }
+
                     }
 
+                    const color = getRandomColor()
+
+                    datasets.push({
+                        label: String(ticker[0]),
+                        data: tickerData,
+                        borderColor: color,
+                        backgroundColor: color,
+                        pointRadius: 0
+                    });
+                }
+            } else {
+                const perfTotal: number[] = new Array(30).fill(0);
+                for (const ticker of map) {
+                    let total = 0;
+                    const stockData = await getStockPrices(token, String(ticker[0]), "D");
+                    let prevTotal = 0;
+                    for (let i = 29; i > -1; i--) {
+                        const date = new Date();
+                        date.setDate(today.getDate() - i);
+
+                        if (ticker[1].has(date.toDateString())) {
+                            total += Number(ticker[1].get(date.toDateString()));
+                            prevTotal = total;
+                            perfTotal[-i + 29] += (total * stockData[-i + 29].price);
+                        } else if (i == 29) {
+                            perfTotal[-i + 29] = 0;
+                        } else {
+                            perfTotal[-i + 29] += prevTotal * stockData[-i + 29].price;
+                        }
+
+                    }
                 }
 
                 const color = getRandomColor()
 
                 datasets.push({
-                    label: String(ticker[0]),
-                    data: tickerData,
+                    label: "Total",
+                    data: perfTotal,
                     borderColor: color,
                     backgroundColor: color,
                     pointRadius: 0
                 });
             }
-
-            console.log(datasets);
+            
 
             const chartSet = {
                 labels,
@@ -118,11 +162,11 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
             console.error('Failed to fetch trades:', error);
             alert(error instanceof Error ? error.message : 'Failed to fetch trades');
         }
-    }, [token]);
+    }, [token, totalMode]);
 
     useEffect(() => {
         const data = fetchTrades();
-    }, [fetchTrades, refreshTrigger, chartMode]);
+    }, [fetchTrades, refreshTrigger, totalMode]);
 
 
     const options = {
@@ -147,11 +191,9 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
     return (
         <div style={{ width: "100%", height: "100%" }}>
             <button
-                onClick={() =>
-                    chartMode === "Total" ? setChartMode("Individual") : setChartMode("Total")
-                }
+                onClick={() => setTotalMode(!totalMode)}
                 className="performance-chart-button"
-            >{chartMode === "Total" ? "Individual" : "Total"}</button>
+            >{totalMode ? "Individual" : "Total"}</button>
             <Line data={chartData} options={options} />
         </div>
     );
