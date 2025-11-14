@@ -193,7 +193,6 @@ body {
       gap: 0;
       height: 100vh; /* Full screen height */
       overflow-y: auto;
-      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
       animation: slideIn 0.3s ease-out;
     }
 
@@ -218,7 +217,6 @@ body {
       height: auto;
       padding-bottom: 12px;
       overflow-y: visible;
-      box-shadow: none;
     }
 
     .topbar .nav-links.mobile-open:empty {
@@ -261,7 +259,6 @@ body {
       padding-top: 12px;
       height: calc(100vh - 310px);
       overflow-y: auto;
-      box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .topbar .auth-buttons .login-btn,
