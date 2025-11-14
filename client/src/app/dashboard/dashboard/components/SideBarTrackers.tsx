@@ -66,7 +66,7 @@ export function TotalRevenue({ refreshTrigger }: SideBarProps) {
 
 export function ProfitLoss({ refreshTrigger }: SideBarProps) {
     return (
-        <div className='realized-container'>
+        <div className='realized-pl-container'>
             <div className='realized-header-container'>
                 < LuTrendingUpDown size={40}/>
                 <h1>Realized P&L</h1>
