@@ -169,7 +169,7 @@ h3 {
     flex-direction: column;
     gap: var(--spacing-lg);
     width: 100%;
-    max-width: 500px;
+    max-width: 400px;
 }
 
 .form h3 {
@@ -188,13 +188,13 @@ h3 {
 
 /* ===== Form Header ===== */
 .form-header {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: bold;
     text-align: center;
     margin-bottom: 24px;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 760px) {
     .form {
         max-width: 100%;
         padding: 0 16px;
@@ -210,6 +210,7 @@ h3 {
     }
 
     .form-header {
+        font-size: 1.5rem;
         margin-bottom: 20px;
     }
 }

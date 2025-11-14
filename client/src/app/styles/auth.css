@@ -87,8 +87,8 @@
     .auth-form-container {
         flex: none;
         width: 100%;
-        padding: 32px 20px;
-        padding-top: 70px;
+        padding: 20px;
+        padding-top: 50px;
         min-height: auto;
         justify-content: flex-start;
     }
@@ -103,10 +103,12 @@
 
     .welcome-text {
         margin: 50px 20px 0;
+        font-size: 1.75rem;
     }
 
     .subtitle-text {
         margin-top: 16px;
+        font-size: 1rem;
     }
 
     .auth-hero-section-container .red-to-green-container {
