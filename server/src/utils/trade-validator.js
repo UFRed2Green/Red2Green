@@ -20,3 +20,13 @@ export function validateTradeInput({ ticker, tradeType, quantity, price }) {
 
     return { normalizedTicker, normalizedType, quantityNum, priceNum };
 }
+
+export function validateTradeOwnership(trade, userId) {
+    if (!trade) {
+        throw new Error("Trade not found");
+    }
+
+    if (trade.userId !== userId) {
+        throw new Error("Unauthorized to access this trade");
+    }
+}
