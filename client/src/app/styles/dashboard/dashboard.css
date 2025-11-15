@@ -28,7 +28,7 @@ html {
 }
 
 .left-column {
-    flex: 2;    
+    flex: 2;
     flex-direction: column;
     padding: 35px;
 }
@@ -110,4 +110,23 @@ html {
     .trade-history-container {
         min-height: 350px;
     }
+}
+
+.performance-chart-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    margin-left: 20px;
+    margin-top: 13px;
+    z-index: 10;
+}
+
+
+.performance-chart-button:hover {
+    background-color: #0056b3;
 }
