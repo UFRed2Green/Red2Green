@@ -77,3 +77,43 @@
     color: var(--color-primary-hover);
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+    .auth-container {
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .auth-form-container {
+        flex: none;
+        width: 100%;
+        padding: 20px;
+        padding-top: 50px;
+        min-height: auto;
+        justify-content: flex-start;
+    }
+
+    .auth-hero-section-container {
+        flex: none;
+        min-height: 250px;
+        max-height: 300px;
+        order: -1;
+        background-attachment: scroll;
+    }
+
+    .welcome-text {
+        margin: 50px 20px 0;
+        font-size: 1.75rem;
+    }
+
+    .subtitle-text {
+        margin-top: 16px;
+        font-size: 1rem;
+    }
+
+    .auth-hero-section-container .red-to-green-container {
+        position: static;
+        margin: 20px;
+        font-size: 1.5rem;
+    }
+}
