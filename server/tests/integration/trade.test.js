@@ -131,7 +131,7 @@ describe("DELETE /api/trades/:tradeId (Integration)", () => {
     expect(res.status).toBe(500);
     expect(res.body.success).toBe(false);
     expect(res.body.error.code).toBe("TRADE_DELETE_FAILED");
-    expect(res.body.error.message).toBe("Unauthorized to delete this trade");
+    expect(res.body.error.message).toBe("Unauthorized to access this trade");
   });
 
   it("should handle DB errors gracefully", async () => {
