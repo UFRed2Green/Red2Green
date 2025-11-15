@@ -1,6 +1,6 @@
 interface StockPrice {
-    date: string;
-    close: number;
+    datetime: string;
+    close: string;
 }
 
 async function apiRequest<T>(

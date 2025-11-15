@@ -2,7 +2,7 @@
 
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { getTrades, type Trade } from '@/lib/trades';
+import { getTrades } from '@/lib/trades';
 import { useAuth } from '@/context/AuthContext';
 import { useCallback, useEffect, useState } from 'react';
 import '@/app/styles/dashboard/dashboard.css';
@@ -94,14 +94,17 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
                         const date = new Date();
                         date.setDate(today.getDate() - i);
 
+                        const index = -i + 29;
+                        const closePrice = stockData[index] ? Number(stockData[index].close) : 0;
+
                         if (ticker[1].has(date.toDateString())) {
                             total += Number(ticker[1].get(date.toDateString()));
                             prevTotal = total;
-                            tickerData.push(total * stockData[-i + 29].price);
+                            tickerData.push(total * closePrice);
                         } else if (i == 29) {
                             tickerData.push(0);
                         } else {
-                            tickerData.push(prevTotal * stockData[-i + 29].price);
+                            tickerData.push(prevTotal * closePrice);
                         }
 
                     }
@@ -126,14 +129,17 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
                         const date = new Date();
                         date.setDate(today.getDate() - i);
 
+                        const index = -i + 29;
+                        const closePrice = stockData[index] ? Number(stockData[index].close) : 0;
+
                         if (ticker[1].has(date.toDateString())) {
                             total += Number(ticker[1].get(date.toDateString()));
                             prevTotal = total;
-                            perfTotal[-i + 29] += (total * stockData[-i + 29].price);
+                            perfTotal[index] += (total * closePrice);
                         } else if (i == 29) {
-                            perfTotal[-i + 29] = 0;
+                            perfTotal[index] = 0;
                         } else {
-                            perfTotal[-i + 29] += prevTotal * stockData[-i + 29].price;
+                            perfTotal[index] += prevTotal * closePrice;
                         }
 
                     }
