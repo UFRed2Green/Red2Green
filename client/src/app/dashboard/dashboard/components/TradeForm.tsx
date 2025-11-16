@@ -63,8 +63,8 @@ export default function TradeForm({ onTradeAdded }: TradeFormProps) {
         let shareTotal = 0;
 
         for (const trade of data) {
-          if (trade.ticker == formData.ticker && trade.price == formData.price) {
-            shareTotal += trade.quantity;
+          if (trade.ticker == formData.ticker) {
+            shareTotal += trade.quantity * (trade.tradeType ===  "SELL" ? -1 : 1);
           }
         }
 
@@ -206,7 +206,6 @@ export default function TradeForm({ onTradeAdded }: TradeFormProps) {
 
           <div className="trade-form-field">
             <label className="trade-form-label">Price per Share</label>
-            {formData.tradeType == 'BUY' ? (
               <input
                 type="number"
                 name="price"
@@ -219,21 +218,6 @@ export default function TradeForm({ onTradeAdded }: TradeFormProps) {
                 disabled={isSubmitting}
                 required
               />
-            ) : (
-              <select
-                name="price"
-                className="trade-form-select"
-                value={formData.price}
-                onChange={handleChange}
-                disabled={isSubmitting}
-                required
-              >
-                <option value="">Select a price</option>
-                {priceOptions}
-              </select>
-            )}
-            
-            
           </div>
         </div>
 
