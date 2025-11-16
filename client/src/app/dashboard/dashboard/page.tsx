@@ -7,6 +7,7 @@ import { TotalInvested, TotalRevenue, ProfitLoss, TotalTrades } from '@/app/dash
 import TradeForm from './components/TradeForm';
 import TradeHistory from './components/TradeHistory';
 import { PerformanceChart } from './components/PerformanceChart';
+import { RiskToReward } from './components/RiskToReward';
 
 export default function DashboardPage() {
     const [refreshTrigger, setRefreshTrigger] = useState(true);
@@ -47,7 +48,7 @@ export default function DashboardPage() {
                         <TotalTrades refreshTrigger={refreshTrigger} />
                     </div>
                     <div className='risk-reward-container card-container'>
-                        Risk Reward
+                        <RiskToReward refreshTrigger={refreshTrigger} />
                     </div>
                     <div className='position-sizes-container card-container'>
                         Position sizes bar chart
