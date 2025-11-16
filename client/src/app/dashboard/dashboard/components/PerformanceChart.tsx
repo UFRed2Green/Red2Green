@@ -47,9 +47,6 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
     const fetchTrades = useCallback(async () => {
         if (!token) return;
 
-        // const stockData = await getStockPrices(token, "AAPL", "D");
-        // console.log(stockData);
-
         try {
             const data = await getTrades(token);
 
@@ -83,7 +80,6 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
             }
 
             const datasets = [];
-            console.log(totalMode);
             if (totalMode) {
                 for (const ticker of map) {
                     const tickerData: number[] = [];
