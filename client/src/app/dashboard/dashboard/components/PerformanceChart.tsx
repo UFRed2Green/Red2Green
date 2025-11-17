@@ -25,17 +25,11 @@ ChartJS.register(
 export function PerformanceChart({ refreshTrigger }: SideBarProps) {
     const { token } = useAuth();
     const [chartData, setChartData] = useState({
-        labels: ["Mon", "Tue", "Wed", "Thu", "Fri"],
-        datasets: [
-            {
-                label: "Stock Price",
-                data: [120, 125, 123, 130, 128],
-                borderColor: "rgba(75,192,192,1)",
-                backgroundColor: "rgba(75,192,192,0.2)",
-            },
-        ],
+        labels: [],
+        datasets: []
     });
     const [totalMode, setTotalMode] = useState(true);
+    const [chartKey, setChartKey] = useState(0);
 
     function getRandomColor(opacity = 1): string {
         const r = Math.floor(Math.random() * 256);
@@ -56,6 +50,18 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
             }
 
             labels[29] = "Current";
+
+            if (data.length == 0) {
+                const chartSet = {
+                    labels,
+                    datasets: []
+                };
+
+                setChartData(chartSet);
+
+                setChartKey(k => k + 1);
+                return;
+            }
 
             const today = new Date();
             today.setDate(today.getDate() - 1);
@@ -159,6 +165,7 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
             };
 
             setChartData(chartSet);
+            setChartKey(k => k + 1);
 
         } catch (error) {
             console.error('Failed to fetch trades:', error);
@@ -192,11 +199,14 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
 
     return (
         <div style={{ width: "100%", height: "100%" }}>
-            <button
-                onClick={() => setTotalMode(!totalMode)}
-                className="performance-chart-button"
-            >{totalMode ? "Individual" : "Total"}</button>
-            <Line data={chartData} options={options} />
+            {chartData.datasets.length != 0 && (
+                <button
+                    onClick={() => setTotalMode(!totalMode)}
+                    className="performance-chart-button"
+                >{totalMode ? "Individual" : "Total"}</button>
+            )}
+            
+            <Line data={chartData} options={options} key={chartKey} />
         </div>
     );
 }

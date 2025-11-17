@@ -11,7 +11,7 @@ import { PerformanceChart } from './components/PerformanceChart';
 export default function DashboardPage() {
     const [refreshTrigger, setRefreshTrigger] = useState(true);
 
-    const handleTradeAdded = () => {
+    const handleChange = () => {
         setRefreshTrigger(prev => !prev);
     };
 
@@ -27,10 +27,10 @@ export default function DashboardPage() {
                         <PerformanceChart refreshTrigger={refreshTrigger} />
                     </div>
                     <div className='add-new-trade-container card-container'>
-                        <TradeForm onTradeAdded={handleTradeAdded} />
+                        <TradeForm onTradeAdded={handleChange} />
                     </div>
                     <div className='trade-history-container card-container'>
-                        <TradeHistory refreshTrigger={refreshTrigger} />
+                        <TradeHistory refreshTrigger={refreshTrigger} onTradeDeleted={handleChange}/>
                     </div>
                 </div>
                 <div className='right-column'>
