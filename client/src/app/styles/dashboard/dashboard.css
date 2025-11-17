@@ -28,7 +28,7 @@ html {
 }
 
 .left-column {
-    flex: 2;    
+    flex: 2;
     flex-direction: column;
     padding: 35px;
 }
@@ -65,10 +65,68 @@ html {
     height: 60vh;
 }
 
-.add-new-trade-container {
+.trade-history-container {
     height: 70vh;
 }
 
-.trade-history-container {
-    height: 70vh;
+.realized-pl-container {
+    background-color: #effcff;
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .left-column {
+        width: 100%;
+        padding: 16px;
+        padding-top: 0;
+        order: 2;
+    }
+
+    .right-column {
+        width: 100%;
+        padding: 16px;
+        padding-bottom: 0;
+        order: 1;
+    }
+
+    .section-heading {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .card-container {
+        margin-bottom: 16px;
+        border-radius: 10px;
+    }
+
+    .stock-performance-container {
+        height: 40vh;
+        min-height: 250px;
+    }
+
+    .trade-history-container {
+        min-height: 350px;
+    }
+}
+
+.performance-chart-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    margin-left: 20px;
+    margin-top: 13px;
+    z-index: 10;
+}
+
+
+.performance-chart-button:hover {
+    background-color: #0056b3;
 }

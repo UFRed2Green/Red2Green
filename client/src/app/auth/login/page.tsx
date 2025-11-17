@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { AiOutlineStock } from 'react-icons/ai';
 import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
 import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/components/Toast';
 
 export default function LoginPage() {
   return (
@@ -45,6 +46,7 @@ function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
+  const { showToast } = useToast();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -53,7 +55,10 @@ function LoginForm() {
 
     try {
       await login(email, password);
+      showToast('success', 'Login successful');
       router.replace('/dashboard/dashboard');
+    } catch (err: any) {
+      showToast('error', err.message);
     } finally {
       setIsLoading(false);
     }
@@ -61,14 +66,15 @@ function LoginForm() {
 
   return (
     <div className='auth-form-container'>
-      <h1 className='auth-form-header'>Login</h1>
-      <form className='auth-form' onSubmit={handleSubmit}>
+      <h1 className='form-header'>Login</h1>
+      <form className='form' onSubmit={handleSubmit}>
         <h3>Email</h3>
         <input
           type='email'
           placeholder='user@email.com'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className='input'
           required
           disabled={isLoading}
         />
@@ -79,7 +85,7 @@ function LoginForm() {
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className='password-input'
+            className='password-input input'
             placeholder='••••••••••'
             required
             disabled={isLoading}
@@ -88,7 +94,7 @@ function LoginForm() {
           {password.length > 0 && (
             <button
               type='button'
-              className='hide-password-icon'
+              className='password-toggle'
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? <RiEyeOffFill /> : <RiEyeFill />}
@@ -96,7 +102,7 @@ function LoginForm() {
           )}
         </div>
 
-        <button className='auth-button' type='submit' disabled={isLoading}>
+        <button type='submit' className='btn-primary' disabled={isLoading}>
           {isLoading ? 'Logging in...' : 'Login'}
         </button>
       </form>

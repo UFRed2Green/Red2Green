@@ -8,7 +8,7 @@ import '@/app/styles/dashboard/trade-history.css';
 import { FiTrash2, FiEdit2 } from 'react-icons/fi';
 
 interface TradeHistoryProps {
-  refreshTrigger?: number;
+  refreshTrigger?: boolean;
 }
 
 export default function TradeHistory({ refreshTrigger }: TradeHistoryProps) {

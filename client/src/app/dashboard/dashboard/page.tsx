@@ -3,14 +3,17 @@
 import { useState } from 'react';
 import '@/app/styles/dashboard/dashboard.css';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
+import { TotalInvested, TotalRevenue, ProfitLoss, TotalTrades } from '@/app/dashboard/dashboard/components/SideBarTrackers';
 import TradeForm from './components/TradeForm';
 import TradeHistory from './components/TradeHistory';
+import { PerformanceChart } from './components/PerformanceChart';
+import { RiskToReward } from './components/RiskToReward';
 
 export default function DashboardPage() {
-    const [refreshTrigger, setRefreshTrigger] = useState(0);
+    const [refreshTrigger, setRefreshTrigger] = useState(true);
 
     const handleTradeAdded = () => {
-        setRefreshTrigger(prev => prev + 1);
+        setRefreshTrigger(prev => !prev);
     };
 
     return (
@@ -22,7 +25,7 @@ export default function DashboardPage() {
                 */}
                 <div className='left-column'>
                     <div className='stock-performance-container card-container'>
-                        Performance chart
+                        <PerformanceChart refreshTrigger={refreshTrigger} />
                     </div>
                     <div className='add-new-trade-container card-container'>
                         <TradeForm onTradeAdded={handleTradeAdded} />
@@ -33,19 +36,19 @@ export default function DashboardPage() {
                 </div>
                 <div className='right-column'>
                     <div className='total-invested-container card-container'>
-                        Total invested
+                        <TotalInvested refreshTrigger={refreshTrigger} />
                     </div>
                     <div className='total-revenue-container card-container'>
-                        Total revenue
+                        <TotalRevenue refreshTrigger={refreshTrigger} />
                     </div>
                     <div className='realized-pl-container card-container'>
-                        Realized P&L
+                        <ProfitLoss refreshTrigger={refreshTrigger} />
                     </div>
                     <div className='total-trades-container card-container'>
-                        Total trades
+                        <TotalTrades refreshTrigger={refreshTrigger} />
                     </div>
                     <div className='risk-reward-container card-container'>
-                        Risk Reward
+                        <RiskToReward refreshTrigger={refreshTrigger} />
                     </div>
                     <div className='position-sizes-container card-container'>
                         Position sizes bar chart

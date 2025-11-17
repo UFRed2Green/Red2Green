@@ -13,6 +13,7 @@ body {
     color: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     gap: 30px;
+    position: relative;
   }
 
   /* Logo styling */
@@ -52,12 +53,11 @@ body {
     font-weight: 600;
     transition: color 0.2s, border-bottom-color 0.2s;
     border-bottom: 3px solid transparent;
-    padding-bottom: 7px;
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 15px;
-    height: 24px;
+    padding: 7px 0;
   }
 
   .topbar .nav-icon {
@@ -127,4 +127,181 @@ body {
   .topbar .login-btn:hover,
   .topbar .register-btn:hover {
     color: #e6f2ff;
+  }
+
+  /* ===== Hamburger Menu Button (Mobile Only) ===== */
+  .hamburger-menu {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+    transition: transform 0.3s ease;
+  }
+
+  .hamburger-menu:hover {
+    opacity: 0.8;
+  }
+
+  .hamburger-menu:active {
+    transform: scale(0.95);
+  }
+
+  /* Mobile Overlay for hamburger menu */
+  .mobile-overlay {
+    display: none;
+  }
+
+  /* ===== MOBILE RESPONSIVE STYLES ===== */
+  @media (max-width: 1024px) {
+    /* Show hamburger menu on tablet and mobile */
+    .hamburger-menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      order: 3;
+    }
+
+    /* Adjust topbar padding for smaller screens */
+    .topbar {
+      padding: 12px 20px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Hide nav-links and auth-buttons by default on mobile */
+    .topbar .nav-links,
+    .topbar .auth-buttons {
+      display: none;
+    }
+
+    /* Common styles for mobile menu items */
+    .topbar .nav-links.mobile-open,
+    .topbar .auth-buttons.mobile-open {
+      position: fixed;
+      right: 0;
+      background-color: #0372e9;
+      flex-direction: column;
+      width: 280px;
+      max-width: 85vw;
+      padding: 80px 20px 20px 20px; /* Top padding accounts for navbar height */
+      z-index: 1000;
+      gap: 0;
+      height: 100vh; /* Full screen height */
+      overflow-y: auto;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .topbar .nav-links.mobile-open,
+    .topbar .auth-buttons.mobile-open {
+      display: flex;
+    }
+
+    .topbar .nav-links.mobile-open {
+      top: 0;
+      height: auto;
+      padding-bottom: 12px;
+      overflow-y: visible;
+    }
+
+    .topbar .nav-links.mobile-open:empty {
+      display: none !important;
+    }
+
+    .topbar .nav-links a {
+      width: 100%;
+      padding: 14px 16px;
+      border-bottom: none;
+      border-left: 3px solid transparent;
+      justify-content: flex-start;
+      font-size: 16px;
+      height: auto;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      transition: background-color 0.2s, border-left-color 0.2s;
+    }
+
+    .topbar .nav-links a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .topbar .nav-links a.active {
+      border-left-color: #ffffff;
+      border-bottom: none;
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .topbar .auth-buttons.mobile-open {
+      top: 0; 
+      border-top: none;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .topbar .nav-links.mobile-open:not(:empty) ~ .auth-buttons.mobile-open {
+      top: 310px;
+      border-top: none;
+      padding-top: 12px;
+      height: calc(100vh - 310px);
+      overflow-y: auto;
+    }
+
+    .topbar .auth-buttons .login-btn,
+    .topbar .auth-buttons .register-btn,
+    .topbar .auth-buttons .logout {
+      width: 100%;
+      padding: 14px 16px;
+      justify-content: flex-start;
+      font-size: 16px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+    }
+
+    .topbar .auth-buttons .logout {
+      background-color: #ff4d4d;
+      margin-bottom: 0;
+    }
+
+    .mobile-overlay {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .topbar .logo a {
+      font-size: 20px;
+    }
+
+    .topbar .logo-icon {
+      font-size: 22px;
+    }
   }

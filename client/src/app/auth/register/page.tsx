@@ -6,6 +6,7 @@ import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 import { AiOutlineStock } from "react-icons/ai";
 import { useState } from 'react';
 import { register } from '@/lib/register';
+import { useToast } from '@/components/Toast';
 
 export default function RegisterPage() {
     return (
@@ -40,53 +41,64 @@ function HeroSection() {
 
 function RegisterForm() {
     const router = useRouter();
+    const { showToast } = useToast();
 
     const [showPassword, setShowPassword] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     async function handleRegister(e: React.FormEvent) {
         e.preventDefault();
+        setIsLoading(true);
         try {
             const data = await register(firstName, lastName, email, password);
+            showToast('success', data.message);
+            setTimeout(() => {
+                router.push('/auth/login');
+            }, 1500);
         } catch (err: any) {
-            console.error("Register failed:", err.message);
+            showToast('error', err.message);
+        } finally {
+            setIsLoading(false);
         }
     }
 
     return (
         <div className='auth-form-container'>
-            <h1 className='auth-form-header'>Create an account</h1>
-            <form className='auth-form' onSubmit={handleRegister}>
+            <h1 className='form-header'>Create an account</h1>
+            <form className='form' onSubmit={handleRegister}>
                 <h3>First Name</h3>
-                <input type='first-name' placeholder='Red' onChange={e => setFirstName(e.target.value)}/>
+                <input type='first-name' placeholder='Red' className='input' onChange={e => setFirstName(e.target.value)}/>
                 <h3>Last Name</h3>
-                <input type='last-name' placeholder='Green' onChange={e => setLastName(e.target.value)}/>
+                <input type='last-name' placeholder='Green' className='input' onChange={e => setLastName(e.target.value)}/>
                 <h3>Email</h3>
-                <input type='email' placeholder='user@email.com' onChange={e => setEmail(e.target.value)}/>
+                <input type='email' placeholder='user@email.com' className='input' onChange={e => setEmail(e.target.value)}/>
                 <h3>Password</h3>
                 <div className='password-container'>
                     <input
                         type={showPassword ? 'text' : 'password'}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className='password-input'
+                        className='password-input input'
                         placeholder='••••••••••'
                     />
 
                     {password.length > 0 && (
                         <button
                             type='button'
-                            className='hide-password-icon'
+                            className='password-toggle'
                             onClick={() => setShowPassword(!showPassword)}
                         >
                             {showPassword ? <RiEyeOffFill /> : <RiEyeFill />}
                         </button>
                     )}
                 </div>
-                <button className='auth-button register-button' type="submit">Sign Up</button>
+                <button type="submit" className='btn-primary' disabled={isLoading}>
+                    {isLoading ? 'Creating account...' : 'Sign Up'}
+                </button>
             </form>
         </div>
     );

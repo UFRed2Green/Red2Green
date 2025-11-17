@@ -1,0 +1,91 @@
+.total-invested-container {
+    background-color: #EEF3FF;
+}
+
+.total-revenue-container {
+    background-color: #f2fbf2;
+}
+
+.invested-header-container,
+.revenue-header-container,
+.realized-header-container,
+.trades-header-container {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin-top: 10%;
+    align-items: center;
+    justify-content: center;
+}
+
+.invested-header-container h1,
+.revenue-header-container h1,
+.realized-header-container h1,
+.trades-header-container h1 {
+    margin-left: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.invested-amount-container,
+.revenue-amount-container,
+.realized-amount-container,
+.trades-amount-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 7%;
+    font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+    /* 2x2 grid layout for financial metrics */
+    .right-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 12px;
+    }
+
+    .total-invested-container,
+    .total-revenue-container,
+    .realized-pl-container,
+    .total-trades-container {
+        padding: 12px;
+        min-height: unset;
+        margin-bottom: 0;
+    }
+
+    /* Reduce font sizes for compact mobile design */
+    .invested-header-container h1,
+    .revenue-header-container h1,
+    .realized-header-container h1,
+    .trades-header-container h1 {
+        font-size: 0.875rem;
+        margin-left: 8px;
+    }
+
+    .invested-header-container,
+    .revenue-header-container,
+    .realized-header-container,
+    .trades-header-container {
+        margin-top: 0;
+        gap: 4px;
+    }
+
+    .invested-header-container svg,
+    .revenue-header-container svg,
+    .realized-header-container svg,
+    .trades-header-container svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .invested-amount-container h1,
+    .revenue-amount-container h1,
+    .realized-amount-container h1,
+    .trades-amount-container h1 {
+        font-size: 1.25rem;
+    }
+}
