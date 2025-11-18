@@ -9,9 +9,10 @@ import { FiTrash2, FiEdit2 } from 'react-icons/fi';
 
 interface TradeHistoryProps {
   refreshTrigger?: boolean;
+  onTradeDeleted?: () => void;
 }
 
-export default function TradeHistory({ refreshTrigger }: TradeHistoryProps) {
+export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHistoryProps) {
   const { token } = useAuth();
   const [trades, setTrades] = useState<Trade[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -60,6 +61,8 @@ export default function TradeHistory({ refreshTrigger }: TradeHistoryProps) {
     } finally {
       setDeletingId(null);
     }
+
+    onTradeDeleted?.();
   };
 
   const formatCurrency = (value: number | string) => {
