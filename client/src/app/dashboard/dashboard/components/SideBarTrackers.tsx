@@ -48,7 +48,7 @@ export function TotalInvested({ refreshTrigger }: SideBarProps) {
                 <h1>Total Invested</h1>
             </div>
             <div className='invested-amount-container'>
-                <h1>{ total }</h1>
+                <h1>${ total }</h1>
             </div>
         </div>
     );
@@ -89,7 +89,7 @@ export function TotalRevenue({ refreshTrigger }: SideBarProps) {
                 <h1>Total Revenue</h1>
             </div>
             <div className='revenue-amount-container'>
-                <h1>{revenue < 0 ? "-" : revenue}</h1>
+                <h1>{revenue < 0 ? "-" : `$${revenue}`}</h1>
             </div>
         </div>
     );
@@ -138,7 +138,7 @@ export function ProfitLoss({ refreshTrigger }: SideBarProps) {
                 <h1>Realized P&L</h1>
             </div>
             <div className='realized-amount-container'>
-                <h1>{ profitLoss }</h1>
+                <h1>${ profitLoss }</h1>
             </div>
         </div>
     );
