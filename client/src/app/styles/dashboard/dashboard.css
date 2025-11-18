@@ -30,14 +30,14 @@ html {
 .left-column {
     flex: 2;
     flex-direction: column;
-    padding: 35px;
+    padding: 35px 17.5px 35px 35px;
 }
 
 .right-column {
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: 35px;
+    padding: 35px 35px 35px 17.5px;
 }
 
 .card-container {
