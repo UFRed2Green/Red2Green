@@ -63,9 +63,6 @@ export default function DashboardPage() {
                     <div className='risk-reward-container card-container'>
                         <RiskToReward refreshTrigger={refreshTrigger} />
                     </div>
-                    <div className='position-sizes-container card-container'>
-                        Position sizes bar chart
-                    </div>
                 </div>
             </main>
         </ProtectedRoute>

@@ -76,11 +76,11 @@ html {
 }
 
 .stock-performance-container {
-    height: 60vh;
+    height: 55vh;
 }
 
 .trade-history-container {
-    height: 70vh;
+    height: 60vh;
 }
 
 .realized-pl-container {
