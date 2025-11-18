@@ -56,14 +56,6 @@ export default function NavBar() {
               <span>Dashboard</span>
             </Link>
             <Link
-              href="/dashboard/trades"
-              className={isActive('/dashboard/trades') ? 'active' : ''}
-              onClick={closeMobileMenu}
-            >
-              <FaExchangeAlt className="nav-icon" />
-              <span>Trades</span>
-            </Link>
-            <Link
               href="/dashboard/settings"
               className={isActive('/dashboard/settings') ? 'active' : ''}
               onClick={closeMobileMenu}
