@@ -31,22 +31,30 @@ export default function DashboardPage() {
                         <TradeForm onTradeAdded={handleChange} />
                     </div>
                     <div className='trade-history-container card-container'>
-                        <TradeHistory refreshTrigger={refreshTrigger} onTradeDeleted={handleChange}/>
+                        <TradeHistory refreshTrigger={refreshTrigger} onTradeDeleted={handleChange} />
                     </div>
                 </div>
                 <div className='right-column'>
-                    <div className='total-invested-container card-container'>
-                        <TotalInvested refreshTrigger={refreshTrigger} />
+                    <div className='side-bar-trackers-container1'>
+                        <div className='side-bar-trackers-container2'>
+                            <div className='total-invested-container'>
+                                <TotalInvested refreshTrigger={refreshTrigger} />
+                            </div>
+                            <div className='total-revenue-container'>
+                                <TotalRevenue refreshTrigger={refreshTrigger} />
+                            </div>
+                        </div>
+                        <div className='side-bar-trackers-container2'>
+                            <div className='realized-pl-container'>
+                                <ProfitLoss refreshTrigger={refreshTrigger} />
+                            </div>
+                            <div className='total-trades-container'>
+                                <TotalTrades refreshTrigger={refreshTrigger} />
+                            </div>
+                        </div>
+
                     </div>
-                    <div className='total-revenue-container card-container'>
-                        <TotalRevenue refreshTrigger={refreshTrigger} />
-                    </div>
-                    <div className='realized-pl-container card-container'>
-                        <ProfitLoss refreshTrigger={refreshTrigger} />
-                    </div>
-                    <div className='total-trades-container card-container'>
-                        <TotalTrades refreshTrigger={refreshTrigger} />
-                    </div>
+
                     <div className='risk-reward-container card-container'>
                         <RiskToReward refreshTrigger={refreshTrigger} />
                     </div>
