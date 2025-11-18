@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import '@/app/styles/dashboard/watchlist.css';
+import { FiTrash2 } from 'react-icons/fi';
 
 export function Watchlist() {
   const [tickers, setTickers] = useState<string[]>([]);
@@ -68,10 +69,10 @@ export function Watchlist() {
               <button
                 type="button"
                 aria-label={`Remove ${t}`}
-                className="remove-button"
+                className="delete-button"
                 onClick={() => handleRemove(t)}
               >
-                Remove
+                <FiTrash2 />
               </button>
             </li>
           ))}

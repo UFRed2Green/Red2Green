@@ -76,21 +76,6 @@
   color: #111827;
 }
 
-.remove-button {
-  padding: 4px 10px;
-  background-color: #f3f4f6;
-  color: #374151;
-  border: 1px solid #e5e7eb;
-  border-radius: 4px;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.remove-button:hover {
-  background-color: #fee2e2;
-  color: #dc2626;
-  border-color: #fecaca;
-}
 
 .watchlist-content > p {
   text-align: center;
