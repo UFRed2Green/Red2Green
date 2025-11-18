@@ -2,7 +2,6 @@ import '@/app/styles/dashboard/risk-to-reward.css';
 import { getTrades, type Trade } from '@/lib/trades';
 import { useAuth } from '@/context/AuthContext';
 import { useCallback, useEffect, useState } from 'react';
-import { getStockPrices } from "@/lib/stocks";
 import { FaExclamationTriangle } from "react-icons/fa";
 
 interface SideBarProps {
@@ -120,43 +119,43 @@ export function RiskToReward({ refreshTrigger }: SideBarProps) {
     }, [calculateRatio, ticker, price, stopLossPrice, targetPrice]);
 
     return (
-        <div>
+        <div className='risk-to-reward-container'>
             <div className='header-container'>
-                <div className='title'>
-                    <FaExclamationTriangle size={25} color='#f56767ff' />
-                    <h1>Risk to Reward</h1>
-                </div>
-                <div className='title-selects'>
-                    <p>Ticker:</p>
-                    <select
-                        value={ticker}
-                        onChange={(e) => {
-                            setTicker(e.target.value)
-                            if (e.target.value === "") {
-                                setPriceOptions([]); 
-                            }
-                        }}
-                    >
-                        {tickerOptions}
-                    </select>
-                    <p>Price:</p>
-                    <select
-                        value={price}
-                        onChange={(e) => {
-                            if (e.target.value === "") {
-                                setPrice(-1);
-                            } else {
-                                setPrice(Number(e.target.value));
-                            }
-                        }}
-                    >
-                        {priceOptions}
-                    </select>
+                <div className='title-with-icon'>
+                    <FaExclamationTriangle size={20} color='#f56767ff' />
+                    <h2 className="section-heading">Risk to Reward</h2>
                 </div>
             </div>
-            <div className='input-container' style={{ marginTop: "-10px" }}>
+            <div className='title-selects'>
+                <p>Ticker:</p>
+                <select
+                    value={ticker}
+                    onChange={(e) => {
+                        setTicker(e.target.value)
+                        if (e.target.value === "") {
+                            setPriceOptions([]);
+                        }
+                    }}
+                >
+                    {tickerOptions}
+                </select>
+                <p>Price:</p>
+                <select
+                    value={price}
+                    onChange={(e) => {
+                        if (e.target.value === "") {
+                            setPrice(-1);
+                        } else {
+                            setPrice(Number(e.target.value));
+                        }
+                    }}
+                >
+                    {priceOptions}
+                </select>
+            </div>
+            <div className='input-container'>
                 <p>Stop Loss Price:</p>
-                <input 
+                <input
                     placeholder="100.00"
                     type="number"
                     min={0}
@@ -168,7 +167,7 @@ export function RiskToReward({ refreshTrigger }: SideBarProps) {
             </div>
             <div className='input-container'>
                 <p>Target Price:</p>
-                <input 
+                <input
                     placeholder="100.00"
                     type="number"
                     min={0}
@@ -180,7 +179,7 @@ export function RiskToReward({ refreshTrigger }: SideBarProps) {
             </div>
             <div className='ratio-container'>
                 <p>Risk/Reward Ratio</p>
-                <div className='win-rate' style={{ marginRight: "30px", color: ratioColor, fontWeight: "bold", fontSize: "1.5rem" }}>
+                <div className='win-rate' style={{ color: ratioColor, fontWeight: "bold", fontSize: "1.5rem" }}>
                     {ratio}
                 </div>
             </div>
