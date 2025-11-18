@@ -1,29 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '@/app/styles/dashboard/watchlist.css';
 import { FiTrash2 } from 'react-icons/fi';
 
 export function Watchlist() {
   const [tickers, setTickers] = useState<string[]>([]);
   const [input, setInput] = useState('');
-
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem('watchlistTickers');
-      if (raw) setTickers(JSON.parse(raw));
-    } catch (e) {
-      // ignore parse errors
-    }
-  }, []);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('watchlistTickers', JSON.stringify(tickers));
-    } catch (e) {
-      // ignore quota errors
-    }
-  }, [tickers]);
 
   function handleAdd(e: React.FormEvent) {
     e.preventDefault();
