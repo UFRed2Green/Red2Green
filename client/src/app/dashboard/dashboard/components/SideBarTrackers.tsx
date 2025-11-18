@@ -44,7 +44,7 @@ export function TotalInvested({ refreshTrigger }: SideBarProps) {
     return (
         <div className='total-invested-container'>
             <div className='invested-header-container'>
-                < TbPigMoney size={40}/>
+                < TbPigMoney size={20}/>
                 <h1>Total Invested</h1>
             </div>
             <div className='invested-amount-container'>
@@ -85,7 +85,7 @@ export function TotalRevenue({ refreshTrigger }: SideBarProps) {
     return (
         <div className='total-revenue-container'>
             <div className='revenue-header-container'>
-                < FaArrowTrendUp size={40}/>
+                < FaArrowTrendUp size={20}/>
                 <h1>Total Revenue</h1>
             </div>
             <div className='revenue-amount-container'>
@@ -134,7 +134,7 @@ export function ProfitLoss({ refreshTrigger }: SideBarProps) {
     return (
         <div className='realized-pl-container'>
             <div className='realized-header-container'>
-                < LuTrendingUpDown size={40}/>
+                < LuTrendingUpDown size={20}/>
                 <h1>Realized P&L</h1>
             </div>
             <div className='realized-amount-container'>
@@ -187,7 +187,7 @@ export function TotalTrades({ refreshTrigger }: SideBarProps) {
     return (
         <div className='total-trades-container'>
             <div className='trades-header-container'>
-                < FaExchangeAlt size={40}/>
+                < FaExchangeAlt size={20}/>
                 <h1>Total Shares</h1>
             </div>
             <div className='trades-amount-container'>

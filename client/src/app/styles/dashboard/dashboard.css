@@ -56,6 +56,20 @@ html {
     flex: 1;
 }
 
+.total-invested-container,
+.total-revenue-container,
+.realized-pl-container,
+.total-trades-container {
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    height: 100%;
+}
+.total-invested-container,
+.realized-pl-container {
+    margin-bottom: 30px;
+}
+
 .position-sizes-container,
 .trade-history-container {
     margin-bottom: 0;
@@ -130,3 +144,21 @@ html {
 .performance-chart-button:hover {
     background-color: #0056b3;
 }
+
+.side-bar-trackers-container1 {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    height: 50vh;
+    margin-bottom: 5vh;
+}
+
+.side-bar-trackers-container2 {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+}
+
+
+
