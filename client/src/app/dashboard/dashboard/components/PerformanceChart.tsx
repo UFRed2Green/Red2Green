@@ -182,31 +182,36 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-            legend: { position: "top" },
-            title: { display: true, text: "Performance" },
+            legend: { position: "top" as const },
+            title: { display: false },
         },
         layout: {
             padding: 10,
         },
         elements: {
             line: {
-                borderJoinStyle: 'round',
+                borderJoinStyle: 'round' as const,
             }
         },
         spanGaps: true,
-        cubicInterpolationMode: 'monotone',
+        cubicInterpolationMode: 'monotone' as const,
     };
 
     return (
-        <div style={{ width: "100%", height: "100%" }}>
-            {chartData.datasets.length != 0 && (
-                <button
-                    onClick={() => setTotalMode(!totalMode)}
-                    className="performance-chart-button"
-                >{totalMode ? "Individual" : "Total"}</button>
-            )}
-            
-            <Line data={chartData} options={options} key={chartKey} />
+        <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", padding: "24px", boxSizing: "border-box" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                <h2 className="section-heading">Performance</h2>
+                {chartData.datasets.length != 0 && (
+                    <button
+                        onClick={() => setTotalMode(!totalMode)}
+                        className="btn btn-dashboard"
+                        style={{ width: "auto" }}
+                    >{totalMode ? "Individual" : "Total"}</button>
+                )}
+            </div>
+            <div style={{ flex: 1, minHeight: 0 }}>
+                <Line data={chartData} options={options} key={chartKey} />
+            </div>
         </div>
     );
 }

@@ -80,38 +80,3 @@
 .trade-form-select:hover {
   background-color: #f0f1f3;
 }
-
-.trade-form-button {
-  width: 100%;
-  padding: 12px 16px;
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: background-color 0.2s ease;
-  font-family: inherit;
-}
-
-.trade-form-button:hover {
-  background-color: #1d4ed8;
-}
-
-.trade-form-button:active {
-  background-color: #1e40af;
-}
-
-.trade-form-button-icon {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.trade-form-button-text {
-  font-weight: 600;
-}

@@ -126,25 +126,6 @@ html {
     }
 }
 
-.performance-chart-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    position: absolute;
-    margin-left: 20px;
-    margin-top: 13px;
-    z-index: 10;
-}
-
-
-.performance-chart-button:hover {
-    background-color: #0056b3;
-}
-
 .side-bar-trackers-container1 {
     display: flex;
     flex-direction: row;

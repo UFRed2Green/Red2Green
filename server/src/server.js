@@ -3,6 +3,7 @@ import authRoutes from "./routes/auth-routes.js";
 import tradeRoutes from "./routes/trade-routes.js";
 import emailRoutes from "./routes/email-routes.js";
 import stockRoutes from "./routes/stock-routes.js";
+import watchlistRoutes from "./routes/watchlist-routes.js";
 import verifyToken from "./middleware/auth-middleware.js";
 import forgotPasswordRoute from "./routes/forgot-pass-routes.js";
 import cors from "cors";
@@ -22,6 +23,7 @@ app.use("/api/email", emailRoutes);
 app.use("/api/forgot-pass", forgotPasswordRoute);
 app.use("/api/trades", verifyToken, tradeRoutes);
 app.use("/api/stocks", verifyToken, stockRoutes);
+app.use("/api/watchlist", verifyToken, watchlistRoutes);
 app.get("/", (req, res) => {
     res.send("Server is running");
 });

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { addTrade } from '@/lib/trades';
 import { useToast } from '@/components/Toast';
-import { getTrades, type Trade } from '@/lib/trades';
+import { getTrades } from '@/lib/trades';
 import '@/app/styles/dashboard/trade-form.css';
 
 interface TradeFormProps {
@@ -236,12 +236,11 @@ export default function TradeForm({ onTradeAdded }: TradeFormProps) {
 
         <button
           type="submit"
-          className="trade-form-button"
+          className="btn btn-dashboard"
           disabled={isSubmitting}
         >
-          <span className="trade-form-button-icon">+</span>
-          <span className="trade-form-button-text">
-            {isSubmitting ? 'Adding...' : 'Add Trade'}
+          <span>
+            {isSubmitting ? 'Adding...' : '+ Add Trade'}
           </span>
         </button>
       </form>
