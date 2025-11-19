@@ -11,7 +11,6 @@ export function Watchlist() {
   const [watchlist, setWatchlist] = useState<WatchlistItem[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [isAdding, setIsAdding] = useState(false);
 
   const fetchWatchlist = useCallback(async () => {
     if (!token) {
@@ -52,15 +51,12 @@ export function Watchlist() {
     }
 
     try {
-      setIsAdding(true);
       const newItem = await addToWatchlist(token, t);
       setWatchlist(prev => [newItem, ...prev]);
       setInput('');
     } catch (error) {
       console.error('Failed to add ticker:', error);
       alert(error instanceof Error ? error.message : 'Failed to add ticker');
-    } finally {
-      setIsAdding(false);
     }
   }
 
@@ -93,10 +89,10 @@ export function Watchlist() {
           onChange={e => setInput((e.target as HTMLInputElement).value)}
           placeholder="Add ticker (e.g. AAPL)"
           className="watchlist-input"
-          disabled={isAdding || isLoading}
+          disabled={isLoading}
         />
-        <button type="submit" className="watchlist-add" disabled={isAdding || isLoading}>
-          {isAdding ? 'Adding...' : 'Add'}
+        <button type="submit" className="watchlist-add" disabled={isLoading}>
+          Add
         </button>
       </form>
 
