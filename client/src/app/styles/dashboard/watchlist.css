@@ -34,20 +34,6 @@
   border-color: #2563eb;
 }
 
-.watchlist-add {
-  padding: 8px 16px;
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.watchlist-add:hover {
-  background-color: #1d4ed8;
-}
-
 .watchlist-list {
   flex: 1;
   display: flex;

@@ -91,7 +91,7 @@ export function Watchlist() {
           className="watchlist-input"
           disabled={isLoading}
         />
-        <button type="submit" className="watchlist-add" disabled={isLoading}>
+        <button type="submit" className="btn btn-dashboard" disabled={isLoading}>
           Add
         </button>
       </form>

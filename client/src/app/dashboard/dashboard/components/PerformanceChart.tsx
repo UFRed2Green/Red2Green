@@ -202,7 +202,8 @@ export function PerformanceChart({ refreshTrigger }: SideBarProps) {
             {chartData.datasets.length != 0 && (
                 <button
                     onClick={() => setTotalMode(!totalMode)}
-                    className="performance-chart-button"
+                    className="btn btn-dashboard"
+                    style={{ position: 'absolute', marginLeft: '20px', marginTop: '13px', zIndex: 10, width: 'auto' }}
                 >{totalMode ? "Individual" : "Total"}</button>
             )}
             
