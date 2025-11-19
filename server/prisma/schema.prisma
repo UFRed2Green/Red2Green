@@ -11,7 +11,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 enum TradeType {
@@ -26,6 +25,7 @@ model User {
   email      String   @unique
   password   String
   trades     Trade[]
+  watchlists Watchlist[]
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   forgotPasswords ForgotPassword[]
@@ -51,4 +51,15 @@ model ForgotPassword {
   code      String
   expiresAt DateTime
   createdAt DateTime @default(now())
+}
+
+model Watchlist {
+  id        String   @id @default(uuid())
+  ticker    String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, ticker])
+  @@index([userId])
 }
