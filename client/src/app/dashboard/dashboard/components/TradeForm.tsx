@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { addTrade } from '@/lib/trades';
 import { useToast } from '@/components/Toast';
-import { getTrades, type Trade } from '@/lib/trades';
+import { getTrades } from '@/lib/trades';
 import '@/app/styles/dashboard/trade-form.css';
 
 interface TradeFormProps {
