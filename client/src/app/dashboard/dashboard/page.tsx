@@ -8,6 +8,7 @@ import TradeForm from './components/TradeForm';
 import TradeHistory from './components/TradeHistory';
 import { PerformanceChart } from './components/PerformanceChart';
 import { RiskToReward } from './components/RiskToReward';
+import { Watchlist } from './components/Watchlist';
 
 export default function DashboardPage() {
     const [refreshTrigger, setRefreshTrigger] = useState(true);
@@ -55,11 +56,12 @@ export default function DashboardPage() {
 
                     </div>
 
+                    <div className='card-container'>
+                        <Watchlist />
+                    </div>
+
                     <div className='risk-reward-container card-container'>
                         <RiskToReward refreshTrigger={refreshTrigger} />
-                    </div>
-                    <div className='position-sizes-container card-container'>
-                        Position sizes bar chart
                     </div>
                 </div>
             </main>

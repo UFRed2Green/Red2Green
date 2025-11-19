@@ -1,46 +1,42 @@
-.header-container {
+.risk-to-reward-container {
+    width: 100%;
+    height: 100%;
     display: flex;
-    justify-content: left;
+    flex-direction: column;
+    padding: 24px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.header-container {
+    margin-bottom: 16px;
+}
+
+.title-with-icon {
+    display: flex;
     align-items: center;
-    margin-left: 30px;
-    justify-content: space-between;
+    gap: 10px;
 }
 
-.header-container h1 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    padding: 15px;
-    color: #000000;
-}
-
-.description-container {
-    margin-top: -10px;
-    color: #919191;
-    margin-left: 30px;
+.title-with-icon .section-heading {
+    margin: 0;
 }
 
 .ratio-container {
     color: #333333;
-    margin-left: 30px;
     display: flex;
     justify-content: space-between;
     margin-top: 25px;
 }
 
-.title {
-    display: flex;
-    align-items: center;
-
-}
-
 .title-selects {
     display: flex;
     align-items: center;
-    margin-right: 30px;
+    gap: 5px;
 }
 
 .title-selects select {
-    width: 85px; 
+    width: 85px;
     border: solid 2px #cbcbcb;
     border-radius: 8px;
     padding: 5px;
@@ -52,8 +48,6 @@
 }
 
 .title-selects p {
-    margin-right: 5px;
-    margin-left: 5px;
     color: #3a3a3a;
 }
 
@@ -61,19 +55,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.input-container p {
-    margin-left: 30px;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .input-container input {
-    margin-right: 30px;
     border: solid 2px #f3f4f6;
     background-color: #f3f4f6;
     border-radius: 8px;
-    margin-top: 21px;
     padding: 5px;
     text-align: right;
     width: 150px;

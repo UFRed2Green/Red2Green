@@ -30,14 +30,14 @@ html {
 .left-column {
     flex: 2;
     flex-direction: column;
-    padding: 35px;
+    padding: 35px 17.5px 35px 35px;
 }
 
 .right-column {
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: 35px;
+    padding: 35px 35px 35px 17.5px;
 }
 
 .card-container {
@@ -76,11 +76,11 @@ html {
 }
 
 .stock-performance-container {
-    height: 60vh;
+    height: 55vh;
 }
 
 .trade-history-container {
-    height: 70vh;
+    height: 60vh;
 }
 
 .realized-pl-container {
@@ -158,6 +158,27 @@ html {
     flex-direction: column;
     flex: 1;
     width: 100%;
+}
+
+/* Shared delete button styles */
+.delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #dc2626;
+    line-height: 1;
+}
+
+.delete-button:hover {
+    background-color: #fee2e2;
+    color: #991b1b;
 }
 
 
