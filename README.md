@@ -14,7 +14,7 @@ Red2Green/
 | **Backend**  | Node.js, Express |
 | **Database** | Prisma ORM with Supabase (PostgreSQL) |
 
-## Getting Started (Project)
+## Getting Started
 
 ### Step 1: Clone the Repository
 First, clone the project locally:
@@ -54,27 +54,12 @@ echo "NEXT_PUBLIC_API_URL=http://localhost:5000" > .env.local
 ### Step 3: Install Dependencies and Run the App 
 ```bash
 npm install
-```
-
-```bash
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Backend / Server
-
-In the server/ directory, run the following command to set up the backend environment.
-These only need to be run during the initial setup or when the database schema changes.
-
-Generate the Prisma client
-(creates the database client from schema.prisma)
-``` bash
-npx prisma generate
-```
-
 ## Learn More
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 - [Node.js Documentation](https://nodejs.org/docs/latest/api/) - reference for core Node APIs and runtime behavior.
 - [Prisma Documentation](https://www.prisma.io/docs) - ORM setup guide, schema modeling, and database workflows.
