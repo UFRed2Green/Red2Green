@@ -11,7 +11,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 enum TradeType {
@@ -20,15 +20,15 @@ enum TradeType {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  firstName String
-  lastName  String
-  email      String   @unique
-  password   String
-  trades     Trade[]
-  watchlists Watchlist[]
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id              Int              @id @default(autoincrement())
+  firstName       String
+  lastName        String
+  email           String           @unique
+  password        String
+  trades          Trade[]
+  watchlists      Watchlist[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
   forgotPasswords ForgotPassword[]
 }
 
