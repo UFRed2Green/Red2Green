@@ -2,17 +2,6 @@
 
 Red2Green is a web-based application that provides a streamlined, user-friendly profit and loss tracking for stock investors.
 
-## Getting Started (GitHub)
-
-Follow these steps to set up your environment and work on tasks.
-
-### 1. Clone the Repository
-First, clone the project locally:
-```bash
-git clone https://github.com/UFRed2Green/Red2Green.git
-cd Red2Green
-```
-
 ### Project Structure
 ```
 Red2Green/
@@ -27,7 +16,12 @@ Red2Green/
 
 ## Getting Started (Project)
 
-### Step 0. Environment Setup
+### Step 1: Clone the Repository
+First, clone the project locally:
+```bash
+git clone https://github.com/UFRed2Green/Red2Green.git
+```
+### Step 2: Environment Setup
 Before running anything, create a copy of the file .env.example within the server directory and call it .env.
 ```bash
 cp .env.example .env
@@ -44,27 +38,29 @@ Copy that value into your .env under:
 JWT_SECRET=<paste_generated_secret_here>
 ```
 
+Next, obtain a TwelveData API key for stock market data:
+1. Create a free account at [https://twelvedata.com/register](https://twelvedata.com/register)
+2. Navigate to your dashboard and copy your API key
+3. Add it to your .env file:
+```bash
+TWELVEDATA_API_KEY=<paste_your_api_key_here>
+```
+
 Then within the client directory run the following to create the local environment variable
 ```bash
 echo "NEXT_PUBLIC_API_URL=http://localhost:5000" > .env.local
 ```
 
-### Step 1. Install Dependencies and Start the App 
+### Step 3: Install Dependencies and Run the App 
 ```bash
 npm install
 ```
-**Before proceeding**, follow the instructions in the [**Backend / Server**](#backend--server). Then, run the app with this command from the root directory. This will start the server and client concurrently.
 
 ```bash
 npm run dev
 ```
 
-### Frontend / Client
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ### Backend / Server
 
@@ -78,9 +74,6 @@ npx prisma generate
 ```
 
 ## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 - [Node.js Documentation](https://nodejs.org/docs/latest/api/) - reference for core Node APIs and runtime behavior.
