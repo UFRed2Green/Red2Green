@@ -6,6 +6,7 @@ import { getTrades, deleteTrade, type Trade } from '@/lib/trades';
 import { formatTradeDate } from '@/utils/trades/date-formatting';
 import '@/app/styles/dashboard/trade-history.css';
 import { FiTrash2, FiEdit2 } from 'react-icons/fi';
+import EditTradeModal from './EditTradeModal';
 
 interface TradeHistoryProps {
   refreshTrigger?: boolean;
@@ -17,6 +18,7 @@ export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHi
   const [trades, setTrades] = useState<Trade[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [editingTrade, setEditingTrade] = useState<Trade | null>(null);
 
   const fetchTrades = useCallback(async () => {
     if (!token) {
@@ -46,9 +48,7 @@ export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHi
       return;
     }
 
-    if (!confirm('Are you sure you want to delete this trade?')) {
-      return;
-    }
+    if (!confirm('Are you sure you want to delete this trade?')) return;
 
     setDeletingId(tradeId);
 
@@ -63,6 +63,19 @@ export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHi
     }
 
     onTradeDeleted?.();
+  };
+
+  const openEditModal = (trade: Trade) => {
+    setEditingTrade(trade);
+  };
+
+  const closeEditModal = () => {
+    setEditingTrade(null);
+  };
+
+  const handleSaveEdit = (updatedTrade: Trade) => {
+    console.log("Updated Trade:", updatedTrade);
+    closeEditModal();
   };
 
   const formatCurrency = (value: number | string) => {
@@ -112,17 +125,18 @@ export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHi
               <th className="col-action">Action</th>
             </tr>
           </thead>
+
           <tbody>
             {trades.map((trade) => {
               const priceNum = parseFloat(trade.price);
-              const total = trade.quantity * priceNum;
-              const isBuy = trade.tradeType === 'BUY';
+              const total = priceNum * trade.quantity;
+              const isBuy = trade.tradeType === "BUY";
 
               return (
                 <tr key={trade.tradeId}>
                   <td className="col-ticker">{trade.ticker}</td>
                   <td className="col-type">
-                    <span className={`trade-type-badge ${isBuy ? 'buy' : 'sell'}`}>
+                    <span className={`trade-type-badge ${isBuy ? "buy" : "sell"}`}>
                       {trade.tradeType}
                     </span>
                   </td>
@@ -130,17 +144,22 @@ export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHi
                   <td className="col-price">{formatCurrency(priceNum)}</td>
                   <td className="col-total">{formatCurrency(total)}</td>
                   <td className="col-date">{formatTradeDate(trade.tradeDate)}</td>
+
                   <td className="col-action">
-                    <button className="edit-button" title="Edit trade">
+                    <button
+                      className="edit-button"
+                      title="Edit trade"
+                      onClick={() => openEditModal(trade)}
+                    >
                       <FiEdit2 />
                     </button>
+
                     <button
                       className="delete-button"
-                      title="Delete trade"
                       onClick={() => handleDelete(trade.tradeId)}
                       disabled={deletingId === trade.tradeId}
                     >
-                      {deletingId === trade.tradeId ? '...' : <FiTrash2 />}
+                      {deletingId === trade.tradeId ? "..." : <FiTrash2 />}
                     </button>
                   </td>
                 </tr>
@@ -149,6 +168,12 @@ export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHi
           </tbody>
         </table>
       </div>
+
+      <EditTradeModal
+        trade={editingTrade}
+        onClose={closeEditModal}
+        onSave={handleSaveEdit}
+      />
     </div>
   );
 }
