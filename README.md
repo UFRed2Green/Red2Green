@@ -50,11 +50,8 @@ echo "NEXT_PUBLIC_API_URL=http://localhost:5000" > .env.local
 ```
 
 ### Step 1. Install Dependencies and Start the App 
-Install the latest dependencies in the client directory and also in the server directory.
 ```bash
 npm install
-cd server && npm install
-cd ../client && npm install
 ```
 **Before proceeding**, follow the instructions in the [**Backend / Server**](#backend--server). Then, run the app with this command from the root directory. This will start the server and client concurrently.
 
@@ -74,11 +71,11 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 In the server/ directory, run the following command to set up the backend environment.
 These only need to be run during the initial setup or when the database schema changes.
 
-1. Generate the Prisma client
-    (creates the database client from schema.prisma)
-    ``` bash
-    npx prisma generate
-    ``
+Generate the Prisma client
+(creates the database client from schema.prisma)
+``` bash
+npx prisma generate
+```
 
 ## Learn More
 
