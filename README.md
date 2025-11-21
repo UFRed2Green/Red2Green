@@ -24,6 +24,7 @@ git clone https://github.com/UFRed2Green/Red2Green.git
 ### Step 2: Environment Setup
 Before running anything, create a copy of the file .env.example within the server directory and call it .env.
 ```bash
+cd server
 cp .env.example .env
 ```
 
@@ -48,6 +49,7 @@ TWELVEDATA_API_KEY=<paste_your_api_key_here>
 
 Then within the client directory run the following to create the local environment variable
 ```bash
+cd client
 echo "NEXT_PUBLIC_API_URL=http://localhost:5000" > .env.local
 ```
 
