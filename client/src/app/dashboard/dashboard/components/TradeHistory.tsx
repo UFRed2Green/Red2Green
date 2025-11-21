@@ -6,6 +6,7 @@ import { getTrades, deleteTrade, type Trade } from '@/lib/trades';
 import { formatTradeDate } from '@/utils/trades/date-formatting';
 import '@/app/styles/dashboard/trade-history.css';
 import { FiTrash2, FiEdit2 } from 'react-icons/fi';
+import EditTradeModal from './EditTradeModal';
 
 interface TradeHistoryProps {
   refreshTrigger?: boolean;
@@ -17,16 +18,7 @@ export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHi
   const [trades, setTrades] = useState<Trade[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
-
-  //Joshua addition for edit trade
   const [editingTrade, setEditingTrade] = useState<Trade | null>(null);
-  const [editForm, setEditForm] = useState({
-    ticker: "",
-    tradeType: "BUY",
-    quantity: 1,
-    price: "",
-    tradeDate: ""
-  });
 
   const fetchTrades = useCallback(async () => {
     if (!token) {
@@ -73,48 +65,15 @@ export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHi
     onTradeDeleted?.();
   };
 
-  // Joshua addition for edit trade
   const openEditModal = (trade: Trade) => {
     setEditingTrade(trade);
-
-    const isoDate = new Date(trade.tradeDate);
-    const mm = String(isoDate.getMonth() + 1).padStart(2, "0");
-    const dd = String(isoDate.getDate()).padStart(2, "0");
-    const yyyy = isoDate.getFullYear();
-
-    setEditForm({
-      ticker: trade.ticker,
-      tradeType: trade.tradeType,
-      quantity: trade.quantity,
-      price: parseFloat(trade.price).toFixed(2),
-      tradeDate: `${mm}/${dd}/${yyyy}`
-    });
   };
 
   const closeEditModal = () => {
     setEditingTrade(null);
   };
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setEditForm(prev => ({ ...prev, [name]: value }));
-  };
-
-  // 📌 SAVE EDITED TRADE (No API yet)
-  const handleSaveEdit = () => {
-    if (!editingTrade) return;
-
-    const updatedTrade: Trade = {
-      ...editingTrade,
-      ticker: editForm.ticker,
-      tradeType: editForm.tradeType as "BUY" | "SELL",
-      quantity: Number(editForm.quantity),
-      price: parseFloat(editForm.price).toFixed(2),
-      tradeDate: new Date(editForm.tradeDate).toISOString()
-    };
-
+  const handleSaveEdit = (updatedTrade: Trade) => {
     console.log("Updated Trade:", updatedTrade);
     closeEditModal();
   };
@@ -157,13 +116,13 @@ export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHi
         <table className="trade-history-table">
           <thead>
             <tr>
-              <th>Ticker</th>
-              <th>Type</th>
-              <th>Qty</th>
-              <th>Price</th>
-              <th>Total</th>
-              <th>Date</th>
-              <th>Action</th>
+              <th className="col-ticker">Ticker</th>
+              <th className="col-type">Type</th>
+              <th className="col-qty">Qty</th>
+              <th className="col-price">Price</th>
+              <th className="col-total">Total</th>
+              <th className="col-date">Date</th>
+              <th className="col-action">Action</th>
             </tr>
           </thead>
 
@@ -175,16 +134,16 @@ export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHi
 
               return (
                 <tr key={trade.tradeId}>
-                  <td>{trade.ticker}</td>
-                  <td>
+                  <td className="col-ticker">{trade.ticker}</td>
+                  <td className="col-type">
                     <span className={`trade-type-badge ${isBuy ? "buy" : "sell"}`}>
                       {trade.tradeType}
                     </span>
                   </td>
-                  <td>{trade.quantity}</td>
-                  <td>{formatCurrency(priceNum)}</td>
-                  <td>{formatCurrency(total)}</td>
-                  <td>{formatTradeDate(trade.tradeDate)}</td>
+                  <td className="col-qty">{trade.quantity}</td>
+                  <td className="col-price">{formatCurrency(priceNum)}</td>
+                  <td className="col-total">{formatCurrency(total)}</td>
+                  <td className="col-date">{formatTradeDate(trade.tradeDate)}</td>
 
                   <td className="col-action">
                     <button
@@ -210,65 +169,11 @@ export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHi
         </table>
       </div>
 
-      {editingTrade && (
-        <div className="modal-bg">
-          <div className="modal-box">
-            <h3>Edit Trade</h3>
-
-            <label>Ticker Symbol</label>
-            <input
-              name="ticker"
-              value={editForm.ticker}
-              onChange={handleInputChange}
-              type="text"
-            />
-
-            <label>Trade Type</label>
-            <select
-              name="tradeType"
-              value={editForm.tradeType}
-              onChange={handleInputChange}
-            >
-              <option value="BUY">BUY</option>
-              <option value="SELL">SELL</option>
-            </select>
-
-            <label>Quantity</label>
-            <input
-              name="quantity"
-              type="number"
-              value={editForm.quantity}
-              onChange={handleInputChange}
-            />
-
-            <label>Price per Share</label>
-            <input
-              name="price"
-              type="number"
-              step="0.01"
-              value={editForm.price}
-              onChange={handleInputChange}
-            />
-
-            <label>Date (MM/DD/YYYY)</label>
-            <input
-              name="tradeDate"
-              type="text"
-              value={editForm.tradeDate}
-              onChange={handleInputChange}
-            />
-
-            <div className="btn-row">
-              <button className="cancel-btn" onClick={closeEditModal}>
-                Cancel
-              </button>
-              <button className="save-btn" onClick={handleSaveEdit}>
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <EditTradeModal
+        trade={editingTrade}
+        onClose={closeEditModal}
+        onSave={handleSaveEdit}
+      />
     </div>
   );
 }
