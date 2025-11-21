@@ -47,10 +47,10 @@ Next, obtain a TwelveData API key for stock market data:
 TWELVEDATA_API_KEY=<paste_your_api_key_here>
 ```
 
-Then within the client directory run the following to create the local environment variable
+Then within the client directory, create the .env.local file from the example:
 ```bash
 cd client
-echo "NEXT_PUBLIC_API_URL=http://localhost:5000" > .env.local
+cp .env.local.example .env.local
 ```
 
 ### Step 3: Install Dependencies and Run the App 
