@@ -253,10 +253,10 @@ body {
     }
 
     .topbar .nav-links.mobile-open:not(:empty) ~ .auth-buttons.mobile-open {
-      top: 310px;
+      top: 210px;
       border-top: none;
       padding-top: 12px;
-      height: calc(100vh - 310px);
+      height: calc(100vh - 210px);
       overflow-y: auto;
     }
 

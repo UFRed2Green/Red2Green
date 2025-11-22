@@ -40,13 +40,17 @@
 }
 
 @media (max-width: 768px) {
-
-    /* 2x2 grid layout for financial metrics */
-    .right-column {
+    .side-bar-trackers-container1 {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto;
         gap: 12px;
+        height: auto;
+        margin-bottom: 16px;
+    }
+
+    .side-bar-trackers-container2 {
+        display: contents;
     }
 
     .total-invested-container,
