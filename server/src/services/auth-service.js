@@ -83,3 +83,20 @@ export async function changeUserPassword({ email, currentPassword, newPassword, 
 
     return { message: "Password changed successfully" };
 }
+
+export async function getUserEmail({ token }) {
+    const id = jwt.verify(token, process.env.JWT_SECRET).id;
+    
+    const user = await prisma.user.findUnique({
+        where: { id: id },
+        select: { email: true },
+    });
+
+    if (!user) {
+        const err = new Error("User not found");
+        err.status = 404;
+        throw err;
+    }
+
+    return user.email;
+}
