@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { getTrades, deleteTrade, type Trade } from '@/lib/trades';
+import { getTrades, deleteTrade, editTrade, type Trade, type TradeInput } from '@/lib/trades';
 import { formatTradeDate } from '@/utils/trades/date-formatting';
 import '@/app/styles/dashboard/trade-history.css';
 import { FiTrash2, FiEdit2 } from 'react-icons/fi';
@@ -11,14 +11,16 @@ import EditTradeModal from './EditTradeModal';
 interface TradeHistoryProps {
   refreshTrigger?: boolean;
   onTradeDeleted?: () => void;
+  onTradeEdited?: () => void;
 }
 
-export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHistoryProps) {
+export default function TradeHistory({ refreshTrigger, onTradeDeleted, onTradeEdited }: TradeHistoryProps) {
   const { token } = useAuth();
   const [trades, setTrades] = useState<Trade[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [editingTrade, setEditingTrade] = useState<Trade | null>(null);
+  const [isSavingEdit, setIsSavingEdit] = useState(false);
 
   const fetchTrades = useCallback(async () => {
     if (!token) {
@@ -73,9 +75,35 @@ export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHi
     setEditingTrade(null);
   };
 
-  const handleSaveEdit = (updatedTrade: Trade) => {
-    console.log("Updated Trade:", updatedTrade);
-    closeEditModal();
+  const handleSaveEdit = async (updatedTrade: Trade) => {
+    if (!token) {
+      alert('You must be logged in to edit a trade');
+      return;
+    }
+
+    setIsSavingEdit(true);
+
+    try {
+      const tradeData: TradeInput = {
+        ticker: updatedTrade.ticker,
+        tradeType: updatedTrade.tradeType,
+        quantity: updatedTrade.quantity,
+        price: parseFloat(updatedTrade.price),
+        tradeDate: updatedTrade.tradeDate,
+      };
+
+      const savedTrade = await editTrade(token, updatedTrade.tradeId, tradeData);
+      setTrades(prev => prev.map(trade =>
+        trade.tradeId === savedTrade.tradeId ? savedTrade : trade
+      ));
+      closeEditModal();
+      onTradeEdited?.();
+    } catch (error) {
+      console.error('Failed to edit trade:', error);
+      alert(error instanceof Error ? error.message : 'Failed to edit trade');
+    } finally {
+      setIsSavingEdit(false);
+    }
   };
 
   const formatCurrency = (value: number | string) => {
@@ -173,6 +201,7 @@ export default function TradeHistory({ refreshTrigger, onTradeDeleted }: TradeHi
         trade={editingTrade}
         onClose={closeEditModal}
         onSave={handleSaveEdit}
+        isSaving={isSavingEdit}
       />
     </div>
   );
