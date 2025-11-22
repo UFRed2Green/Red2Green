@@ -32,7 +32,7 @@ export default function DashboardPage() {
                         <TradeForm onTradeAdded={handleChange} />
                     </div>
                     <div className='trade-history-container card-container'>
-                        <TradeHistory refreshTrigger={refreshTrigger} onTradeDeleted={handleChange} />
+                        <TradeHistory refreshTrigger={refreshTrigger} onTradeDeleted={handleChange} onTradeEdited={handleChange} />
                     </div>
                 </div>
                 <div className='right-column'>

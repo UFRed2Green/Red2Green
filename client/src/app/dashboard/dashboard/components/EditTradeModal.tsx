@@ -8,9 +8,10 @@ interface EditTradeModalProps {
   trade: Trade | null;
   onClose: () => void;
   onSave: (updatedTrade: Trade) => void;
+  isSaving?: boolean;
 }
 
-export default function EditTradeModal({ trade, onClose, onSave }: EditTradeModalProps) {
+export default function EditTradeModal({ trade, onClose, onSave, isSaving = false }: EditTradeModalProps) {
   const [editForm, setEditForm] = useState({
     ticker: "",
     tradeType: "BUY",
@@ -47,7 +48,7 @@ export default function EditTradeModal({ trade, onClose, onSave }: EditTradeModa
       tradeType: editForm.tradeType as "BUY" | "SELL",
       quantity: Number(editForm.quantity),
       price: parseFloat(editForm.price).toFixed(2),
-      tradeDate: new Date(editForm.tradeDate).toISOString()
+      tradeDate: editForm.tradeDate
     };
 
     onSave(updatedTrade);
@@ -107,8 +108,8 @@ export default function EditTradeModal({ trade, onClose, onSave }: EditTradeModa
           <button className="cancel-btn" onClick={onClose}>
             Cancel
           </button>
-          <button className="save-btn" onClick={handleSaveEdit}>
-            Save
+          <button className="save-btn" onClick={handleSaveEdit} disabled={isSaving}>
+            {isSaving ? 'Saving...' : 'Save'}
           </button>
         </div>
       </div>
