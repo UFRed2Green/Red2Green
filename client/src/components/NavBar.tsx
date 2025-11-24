@@ -5,13 +5,16 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { FaChartLine, FaExchangeAlt, FaEye, FaCog, FaSignOutAlt, FaSignInAlt, FaUserPlus, FaBars, FaTimes } from 'react-icons/fa';
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { getEmail } from '@/lib/email';
 
 export default function NavBar() {
   const pathname = usePathname();
   const router = useRouter();
   const { isAuthenticated, logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [advancedUser, setAdvancedUser] = useState(false);
+  const { token } = useAuth();
 
   const isActive = (href: string) => pathname === href;
 
@@ -25,12 +28,37 @@ export default function NavBar() {
     setIsMobileMenuOpen(false);
   };
 
+  const checkAdvancedUser = useCallback(async () => {
+        if (!token) {
+            return;
+        }
+
+        try {
+            const email = await getEmail(token);
+
+            if (email.endsWith("@ufl.edu")) {
+                setAdvancedUser(true);
+            } else {
+                setAdvancedUser(false);
+            }
+        } catch (error) {
+            console.error('Failed to fetch email:', error);
+            alert(error instanceof Error ? error.message : 'Failed to fetch email');
+        }
+
+    }, [token]);
+
+    useEffect(() => {
+        checkAdvancedUser();
+    }, [checkAdvancedUser]);
+  
+
   return (
     <div className="topbar">
       <div className="logo">
         <Link href="/" onClick={closeMobileMenu}>
           <FaChartLine className="logo-icon" />
-          <span>Red2Green</span>
+          {advancedUser ? <span>Red2Green <i>Advanced</i></span> : <span>Red2Green</span> }
         </Link>
       </div>
 
