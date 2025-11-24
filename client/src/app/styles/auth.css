@@ -78,6 +78,11 @@
     text-decoration: underline;
 }
 
+.adv-user-msg {
+    margin-top: 45px;
+    color: #757575;
+}
+
 @media (max-width: 768px) {
     .auth-container {
         flex-direction: column;

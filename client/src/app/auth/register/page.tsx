@@ -100,6 +100,9 @@ function RegisterForm() {
                     {isLoading ? 'Creating account...' : 'Sign Up'}
                 </button>
             </form>
+            <div className='adv-user-msg'>
+                <p>Users who register with their @ufl.edu email will get access to advanced features.</p>
+            </div>
         </div>
     );
 }
